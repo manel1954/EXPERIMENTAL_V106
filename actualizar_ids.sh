@@ -21,7 +21,6 @@ sed -i "$linea_sed DATABASEURL='https://ham-digital.org/status/users.csv'" /home
 
 sudo sh /home/pi/MMDVMHost/linux/DMRIDUpdate.sh
 
-
                         # 14-08-2020 cambio actualizar para que salgan los indicativos en DVSWITCH:
                         cd /var/lib/mmdvm
                         sudo curl --fail -o DMRIds.dat -s http://www.pistar.uk/downloads/DMRIds.dat
