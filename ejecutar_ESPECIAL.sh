@@ -11,4 +11,4 @@ sed -i "75c $puerto" /home/pi/status.ini
 x=$(awk "NR==92" /home/pi/status.ini)
 
 cd /home/pi/MMDVMHost
-xterm -geometry 76x10+$x+64  -bg black -fg yellow -fa 'arial' -fs 10x -T ESPECIAL -e sudo ./MMDVMESPECIAL MMDVMESPECIAL.ini &
+xterm -geometry 76x10+$x+64  -bg black -fg yellow -fa 'serift' -fs 10x -T ESPECIAL -e sudo ./MMDVMESPECIAL MMDVMESPECIAL.ini &
