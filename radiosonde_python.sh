@@ -11,9 +11,9 @@ cd radiosonde_auto_rx/auto_rx
 cp station.cfg.example station.cfg
 
 cd ~/radiosonde_auto_rx/auto_rx
-python3 -m venv venv;
-source venv/bin/activate;
-pip install --upgrade pip;
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 
 
