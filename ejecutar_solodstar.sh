@@ -14,5 +14,5 @@ x=$(awk "NR==94" /home/pi/status.ini)
 sudo ircddbgateway -gui &
 
 cd /home/pi/MMDVMHost
-xterm -geometry 76x10+$x+530  -bg black -fg cyan -fa 'serift' -fs 10x -T SOLO_DSTAR -e sudo ./MMDVMDSTAR MMDVMDSTAR.ini
+xterm -geometry 76x9+1287+832  -bg black -fg cyan -fa 'serift' -fs 10x -T SOLO_DSTAR -e sudo ./MMDVMDSTAR MMDVMDSTAR.ini
 
