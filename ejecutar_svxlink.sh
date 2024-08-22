@@ -1,5 +1,8 @@
 #!/bin/bash
 
+*********************************
+ESTE CREO QUE NO HACE NADA
+*****************************
 
 # SCRIPTS_version=$(awk "NR==3" /home/pi/version-fecha-actualizacion)
 # cd /home/pi/Desktop
