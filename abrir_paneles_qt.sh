@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /home/pi/A108/qt
-./qt_menu_general
+./qt_menu_superior
