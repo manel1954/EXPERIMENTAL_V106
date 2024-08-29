@@ -14,5 +14,7 @@ sleep 1
 sudo rm /home/pi/NXDNClients/NXDNGateway/*.log
 sleep 1
 sudo rm /var/log/*.log
+cd 7home/pi//A108/qt
+./qt_popus_actualizando_ids
 
 
