@@ -13,6 +13,6 @@ sed -i "71c $puerto" /home/pi/status.ini
 x=$(awk "NR==90" /home/pi/status.ini)
 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x10+1287+256 -bg brown -fg white -fa 'serift' -fs 9x -T BRANDMEISTER -e sudo ./MMDVMBM MMDVMBM.ini &
+xterm -geometry 87x10+1287+256 -bg brown -fg white -fa 'serift' -fs 9x -T BRANDMEISTER -e ./MMDVMBM MMDVMBM.ini &
 
  

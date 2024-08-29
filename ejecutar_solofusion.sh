@@ -11,5 +11,5 @@ sed -i "79c $puerto" /home/pi/status.ini
 cd /home/pi/YSFClients/YSFGateway
 xterm -geometry 87x5+1287+943 -bg black -fg orange -fa 'serift' -fs 9x -T YSFGateway -e ./YSFGateway YSFGateway.ini & 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x5+1287+832 -bg black -fg orange -fa 'serift' -fs 9x -T MMDVMFUSION -e sudo ./MMDVMFUSION MMDVMFUSION.ini
+xterm -geometry 87x5+1287+832 -bg black -fg orange -fa 'serift' -fs 9x -T MMDVMFUSION -e ./MMDVMFUSION MMDVMFUSION.ini
 
