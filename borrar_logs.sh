@@ -1,4 +1,8 @@
 #!/bin/bash
+
+cd /home/pi/A108/qt
+./qt_popus_actualizando_ids
+
 sudo rm /home/pi/MMDVMHost/*.log
 sleep 1
 sudo rm /var/log/irc*.log
@@ -14,7 +18,6 @@ sleep 1
 sudo rm /home/pi/NXDNClients/NXDNGateway/*.log
 sleep 1
 sudo rm /var/log/*.log
-cd /home/pi/A108/qt
-./qt_popus_actualizando_ids
+
 
 
