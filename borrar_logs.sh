@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /home/pi/A108/qt
-./qt_popus_actualizando_ids
+./qt_popus_borrando_logs
 
 sudo rm /home/pi/MMDVMHost/*.log
 sleep 1
