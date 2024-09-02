@@ -9,4 +9,4 @@ puerto=`expr substr $puerto 15 14`
 sed -i "79c $puerto" /home/pi/status.ini
 
 cd /home/pi/YSFClients/YSFGateway
-xterm -geometry 87x10+1287+832 -bg black -fg orange -fa 'serift' -fs 9x -T YSFGateway -e ./YSFGateway YSFGateway.ini & 
+xterm -geometry 87x12+1287+832 -bg black -fg orange -fa 'serift' -fs 9x -T YSFGateway -e ./YSFGateway YSFGateway.ini & 
