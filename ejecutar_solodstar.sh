@@ -8,8 +8,6 @@ puerto=$(awk "NR==51" /home/pi/MMDVMHost/MMDVMDSTAR.ini)
 puerto=`expr substr $puerto 15 14`
 sed -i "81c $puerto" /home/pi/status.ini
 
-x=$(awk "NR==94" /home/pi/status.ini)
-
 # Ejecuta Solo D-STAR 
 sudo ircddbgateway -gui &
 

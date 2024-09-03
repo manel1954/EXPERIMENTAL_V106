@@ -8,7 +8,5 @@ puerto=$(awk "NR==51" /home/pi/MMDVMHost/MMDVMESPECIAL.ini)
 puerto=`expr substr $puerto 15 14`
 sed -i "75c $puerto" /home/pi/status.ini
 
-x=$(awk "NR==92" /home/pi/status.ini)
-
 cd /home/pi/MMDVMHost
 xterm -geometry 87x10+1287+448  -bg black -fg yellow -fa 'serift' -fs 9x -T ESPECIAL -e ./MMDVMESPECIAL MMDVMESPECIAL.ini &
