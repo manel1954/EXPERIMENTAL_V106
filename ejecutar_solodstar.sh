@@ -12,5 +12,5 @@ sed -i "81c $puerto" /home/pi/status.ini
 sudo ircddbgateway -gui &
 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x12+1287+832  -bg black -fg green -fa 'serift' -fs 9x -T SOLO_DSTAR -e ./MMDVMDSTAR MMDVMDSTAR.ini
+xterm -geometry 87x12+1287+832  -bg black -fg green -fa 'serift' -fs 9x -T SOLO_DSTAR -e sudo ./MMDVMDSTAR MMDVMDSTAR.ini
 
