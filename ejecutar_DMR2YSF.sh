@@ -12,7 +12,7 @@ cd /home/pi/DMR2YSF
 xterm -geometry 88x6+1274+665 -bg black -fg yellow -fa 'serift' -fs 9x -T DMR2YSF -e ./DMR2YSF DMR2YSF.ini &
 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x10+1287+640 -bg black -fg yellow -fa 'serift' -fs 9x -T CONSOLA_MMDVMDMR2YSF -e ./DMR2YSF MMDVMDMR2YSF.ini &
+xterm -geometry 87x10+1287+640 -bg black -fg yellow -fa 'serift' -fs 9x -T MMDVMDMR2YSF -e sudo ./DMR2YSF MMDVMDMR2YSF.ini &
 
 cd /home/pi/YSFClients/YSFGateway
 sudo ./YSFGateway YSFGateway.ini
