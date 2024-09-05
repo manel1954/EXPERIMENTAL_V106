@@ -15,7 +15,3 @@
                         sudo chmod 777 dv_serial
                         cd /home/pi/dv4mini
                         sudo chmod 777 dv_serial
-
-                        cd /home/pi/A108/qt
-                        ./qt_popus_actualizando_ids
-                        
