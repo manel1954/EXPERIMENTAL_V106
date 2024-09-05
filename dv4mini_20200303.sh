@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-                        sudo rm -r /homA108/DV4MINI/
+                        sudo rm -r /home/pi/A108/DV4MINI/
                         cd /home/pi/A108
                         git clone http://github.com/ea3eiz/DV4MINI
                         sudo rm -r /home/pi/dv4mini
