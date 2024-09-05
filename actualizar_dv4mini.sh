@@ -79,7 +79,7 @@ clear
                         sudo rm /usr/bin/dv_serial
                         sudo mkdir /home/pi/dv4mini
                         sudo chmod 777 -R /home/pi/dv4mini
-                        cd /home/pi/SYSTEM/DV4MINI/20170517
+                        cd /home/pi/A108/DV4MINI/20170517
                         cp dv_serial /home/pi/dv4mini
                         cp dv4mini.exe /home/pi/dv4mini
                         cp xref.ip /home/pi/dv4mini
