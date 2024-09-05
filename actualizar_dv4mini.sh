@@ -37,14 +37,14 @@ clear
                         case $ejecutar1 in
                         [sS]* ) echo ""
                         echo "<<<<<<<< ACTUALIZANDO DV4MINI >>>>>>>>>"
-                        sudo rm -r /home/pi/SYSTEM/DV4MINI/
-                        cd /home/pi/SYSTEM
+                        sudo rm -r /homA108/DV4MINI/
+                        cd /home/pi/A108
                         git clone http://github.com/ea3eiz/DV4MINI
                         sudo rm -r /home/pi/dv4mini
                         sudo rm /usr/bin/dv_serial
                         sudo mkdir /home/pi/dv4mini
                         sudo chmod 777 -R /home/pi/dv4mini
-                        cd /home/pi/SYSTEM/DV4MINI/20200303
+                        cd /home/pi/A108/DV4MINI/20200303
                         sudo cp dv_serial /home/pi/dv4mini
                         sudo cp dv4mini.exe /home/pi/dv4mini
                         sudo cp xref.ip /home/pi/dv4mini
@@ -72,8 +72,8 @@ clear
                         case $ejecutar1 in
                         [sS]* ) echo ""
                         echo ">>>>>>>>> ACTUALIZANDO >>>>>>>>"
-                        sudo rm -r /home/pi/SYSTEM/DV4MINI/
-                        cd /home/pi/SYSTEM
+                        sudo rm -r /home/pi/A108/DV4MINI/
+                        cd /home/pi/A108
                         git clone http://github.com/ea3eiz/DV4MINI
                         sudo rm -r /home/pi/dv4mini
                         sudo rm /usr/bin/dv_serial
