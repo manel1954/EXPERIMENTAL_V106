@@ -19,7 +19,7 @@ sed -i "11c Name=$frecuencia" /home/pi/RXF_DMRGATEWAY.desktop
 
 cd /home/pi/DMRGateway
 
-xterm -geometry 87x5+1287+943 -bg black -fg white -fa 'serift' -fs 9x -T YSFGateway -e sudo ./DMRGateway DMRGateway.ini &
+xterm -geometry 87x15+1287+243 -bg black -fg white -fa 'serift' -fs 9x -T YSFGateway -e sudo ./DMRGateway DMRGateway.ini &
 
 sleep 2
 
