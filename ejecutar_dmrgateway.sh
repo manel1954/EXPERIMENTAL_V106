@@ -24,7 +24,7 @@ xterm -geometry 87x15+1287+643 -bg black -fg white -fa 'serift' -fs 9x -T YSFGat
 sleep 2
 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x5+1287+832 -bg black -fg white -fa 'serift' -fs 9x -T MMDVMDMRGATEWAY -e sudo ./MMDVMDMRGATEWAY MMDVMDMRGateway.ini 
+xterm -geometry 87x5+1287+932 -bg black -fg white -fa 'serift' -fs 9x -T MMDVMDMRGATEWAY -e sudo ./MMDVMDMRGATEWAY MMDVMDMRGateway.ini 
 
 
 
