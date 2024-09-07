@@ -1,21 +1,14 @@
 #!/bin/bash
 
-#sudo systemctl stop mmdvm_bridge.service #esto se hace para que funcione el DMRGateway 
+sed -i "6c DMRGateway=ON" /home/pi/status.ini
 
-mode=`grep -n -m 1 "^Port=" /home/pi/MMDVMHost/MMDVMDMRGateway.ini`
-buscar=":"
-caracteres=`expr index $mode $buscar`
-caracteres_linea=`expr $caracteres - 1`
-numero_linea_port=`expr substr $mode 1 $caracteres_linea`
-mode=$(awk "NR==$numero_linea_port" /home/pi/MMDVMHost/MMDVMDMRGateway.ini)
-puerto=`expr substr $mode 11 9`
-puerto="  "$puerto
+frecuencia=$(awk "NR==13" /home/pi/MMDVMHost/MMDVMPLUS.ini)
+frecuencia=`expr substr $frecuencia 13 9`
+sed -i "86c $frecuencia" /home/pi/status.ini
 
-frecuencia=$(awk "NR==13" /home/pi/MMDVMHost/MMDVMDMRGateway.ini)
-frecuencia=`expr substr $frecuencia 13 17`
-frecuencia=$frecuencia$puerto
-sed -i "11c Name=$frecuencia" /home/pi/RXF_DMRGATEWAY.desktop
-
+puerto=$(awk "NR==51" /home/pi/MMDVMHost/MMDVMPLUS.ini)
+puerto=`expr substr $puerto 15 14`
+sed -i "87c $puerto" /home/pi/status.ini
 
 cd /home/pi/DMRGateway
 
