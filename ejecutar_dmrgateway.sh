@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i "6c DMRGateway=ON" /home/pi/status.ini
+sed -i "19c DMRGateway=ON" /home/pi/status.ini
 
 frecuencia=$(awk "NR==13" /home/pi/MMDVMHost/MMDVMPLUS.ini)
 frecuencia=`expr substr $frecuencia 13 9`
