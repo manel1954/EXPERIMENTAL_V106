@@ -12,12 +12,12 @@ sed -i "89c $puerto" /home/pi/status.ini
 
 cd /home/pi/YSF2DMR
 
-xterm -geometry 87x15+1287+643 -bg black -fg orange -fa 'serift' -fs 9x -T YSF2DMR -e sudo ./YSF2DMR YSF2DMR.ini &
+xterm -geometry 87x7+1287+905 -bg black -fg orange -fa 'serift' -fs 9x -T YSF2DMR -e sudo ./YSF2DMR YSF2DMR.ini &
 
 sleep 2
 
 cd /home/pi/MMDVMHost
-xterm -geometry 87x7+1287+905 -bg black -fg orange -fa 'serift' -fs 9x -T MMDVMFUSION -e sudo ./MMDVMFUSION MMDVMFUSION.ini 
+xterm -geometry 87x15+1287+643 -bg black -fg orange -fa 'serift' -fs 9x -T MMDVMFUSION -e sudo ./MMDVMFUSION MMDVMFUSION.ini 
 
 
 
