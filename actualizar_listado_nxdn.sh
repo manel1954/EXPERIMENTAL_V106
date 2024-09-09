@@ -21,7 +21,7 @@ sudo rm -R private
 mkdir private
 
 cp NXDNHosts.txt /home/pi/NXDNClients/NXDNGateway/private
-cp NXDNHosts.txt /home/pi/NXDNClients/NXDNGateway                            
+#cp NXDNHosts.txt /home/pi/NXDNClients/NXDNGateway                            
 sleep 2
 clear  
 echo "\v\v"  
