@@ -9,10 +9,10 @@ puerto=`expr substr $puerto 15 14`
 sed -i "93c $puerto" /home/pi/status.ini
 
 cd /home/pi/DMR2NXDN
-xterm -geometry 88x6+1280+665 -bg violet -fg black -fa ‘verdana’ -fs 9x -T DMR2NXDN -e sudo ./DMR2NXDN DMR2NXDN.ini & 
+xterm -geometry 88x6+1283+665 -bg violet -fg black -fa ‘verdana’ -fs 9x -T DMR2NXDN -e sudo ./DMR2NXDN DMR2NXDN.ini & 
 cd /home/pi/MMDVMHost
-xterm -geometry 88x9+1282+787 -bg violet -fg black -fa ‘verdana’ -fs 9x -T MMDVMDMR2NXDN -e sudo ./DMR2NXDN MMDVMDMR2NXDN.ini & 
+xterm -geometry 88x9+1283+787 -bg violet -fg black -fa ‘verdana’ -fs 9x -T MMDVMDMR2NXDN -e sudo ./DMR2NXDN MMDVMDMR2NXDN.ini & 
 cd /home/pi/NXDNClients/NXDNGateway
-xterm -geometry 88x4+1279+0 -bg violet -fg black -fa ‘verdana’ -fs 9x -T NXDNGateway -e sudo ./NXDNGateway NXDNGateway.ini
+xterm -geometry 88x4+1283+887 -bg violet -fg black -fa ‘verdana’ -fs 9x -T NXDNGateway -e sudo ./NXDNGateway NXDNGateway.ini
 
 
