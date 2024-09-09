@@ -1,7 +1,5 @@
 ﻿#!/bin/bash
-clear
-usuario=$(awk "NR==1" /home/pi/.config/autostart/usuario)
-SCRIPTS_version=$(awk "NR==3" $usuario/version-fecha-actualizacion)                                                                       
+clear                                                                     
 #Colores 
 ROJO="\033[1;31m"
 VERDE="\033[1;32m"
@@ -18,12 +16,12 @@ echo "                       ACTUALIZANDO FICHERO NXDNHost.txt"
 echo "${VERDE}"
 echo "            ********************************************************"
                 
-cd $usuario/NXDNClients/NXDNGateway/
+cd /home/pi/NXDNClients/NXDNGateway/
 sudo rm -R private
 mkdir private
-cd $usuario/$SCRIPTS_version
-cp NXDNHosts.txt $usuario/NXDNClients/NXDNGateway/private
-cp NXDNHosts.txt $usuario/NXDNClients/NXDNGateway                            
+
+cp NXDNHosts.txt /home/pi/NXDNClients/NXDNGateway/private
+cp NXDNHosts.txt /home/pi/NXDNClients/NXDNGateway                            
 sleep 2
 clear  
 echo "\v\v"  
