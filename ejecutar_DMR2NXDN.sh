@@ -13,6 +13,6 @@ xterm -geometry 88x6+1283+665 -bg violet -fg black -fa ‘verdana’ -fs 9x -T D
 cd /home/pi/MMDVMHost
 xterm -geometry 88x9+1283+787 -bg violet -fg black -fa ‘verdana’ -fs 9x -T MMDVMDMR2NXDN -e sudo ./DMR2NXDN MMDVMDMR2NXDN.ini & 
 cd /home/pi/NXDNClients/NXDNGateway
-xterm -geometry 88x3+1283+990 -bg violet -fg black -fa ‘verdana’ -fs 9x -T NXDNGateway -e sudo ./NXDNGateway NXDNGateway.ini
+xterm -geometry 88x3+1283+980 -bg violet -fg black -fa ‘verdana’ -fs 9x -T NXDNGateway -e sudo ./NXDNGateway NXDNGateway.ini
 
 
