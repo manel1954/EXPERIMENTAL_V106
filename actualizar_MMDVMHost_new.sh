@@ -78,8 +78,8 @@
                   
                     cp MMDVM.ini MMDVMDMRGateway.ini 
                     
-                    sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MDVMDMRGateway.ini
-                    sed -i "229c Type=Gateway" /home/pi/MMDVMHost/MMDVMDMMRGateway.ini
+                    sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
+                    sed -i "229c Type=Gateway" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
                     sed -i "231c LocalPort=62032" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
                     
                     sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MMDVMDMR2YSF.ini
