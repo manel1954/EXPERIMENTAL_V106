@@ -14,7 +14,7 @@
                  
                     
                     sed -i "5c Duplex=0" /home/pi/MMDVMHost/MMDVM.ini
-                    sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MMDVM.ini
+                    sed -i "52c UARTSpeed=115200" /home/pi/MMDVMHost/MMDVM.ini
                     sed -i "229c Type=Direct" /home/pi/MMDVMHost/MMDVM.ini
                     sed -i "231c # LocalPort=62032" /home/pi/MMDVMHost/MMDVM.ini
                     sed -i "234c Password=PASSWORD" /home/pi/MMDVMHost/MMDVM.ini
@@ -78,11 +78,11 @@
                   
                     cp MMDVM.ini MMDVMDMRGateway.ini 
                     
-                    sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
+                    sed -i "52c UARTSpeed=115200" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
                     sed -i "229c Type=Gateway" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
                     sed -i "231c LocalPort=62032" /home/pi/MMDVMHost/MMDVMDMRGateway.ini
                     
-                    sed -i "52c # UARTSpeed=460800" /home/pi/MMDVMHost/MMDVMDMR2YSF.ini
+                    sed -i "52c UARTSpeed=115200" /home/pi/MMDVMHost/MMDVMDMR2YSF.ini
                     sed -i "231c LocalPort=62032" /home/pi/MMDVMHost/MMDVMDMR2YSF.ini
                     sed -i "231c LocalPort=62032" /home/pi/MMDVMHost/MMDVMDMR2NXDN.ini
                     sed -i "231c LocalPort=62037" /home/pi/MMDVMHost/MMDVMDMR2M17.ini
