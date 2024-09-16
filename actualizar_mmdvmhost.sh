@@ -1,7 +1,7 @@
 #!/bin/bash
                     cd /home/pi/MMDVMHost
 
-                    HOY=$(date +%Y%m%d)
+                    HOY="20221117"
                     FIJA="const char* VERSION = "\"
                     PI="A108EXP"\"
                     HOY1=$HOY$PI
