@@ -3,10 +3,7 @@
 
 
                     # Crea los ficheros .ini y Memorias ==================
-                    cp MMDVMBM.ini MMDVMBM.ini_original
-                    cp MMDVMBM.ini MMDVMBM.ini_copia
-                    cp MMDVMBM.ini MMDVMBM.ini_copia2
-                    cp MMDVMBM.ini MMDVMBM.ini_copia3
+
 
                     cp MMDVMBM.ini MMDVMBM.ini
                     cp MMDVMBM.ini MMDVMBM.ini_copia
