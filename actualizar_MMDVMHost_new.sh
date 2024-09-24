@@ -19,7 +19,7 @@
                     sed -i "231c # LocalPort=62032" /home/pi/MMDVMHost/MMDVM.ini
                     sed -i "234c Password=PASSWORD" /home/pi/MMDVMHost/MMDVM.ini
 
-                    # Crea los ejecutables para estas aplicaciones 
+                 # Crea los ejecutables para estas aplicaciones 
                     
                     cp MMDVMHost MMDVMBM
                     cp MMDVMHost MMDVMPLUS
