@@ -131,11 +131,11 @@ sleep 2
 
 #Start monitor service
 sudo cp /opt/HBmonitor/utils/hbmon.service /lib/systemd/system/
-systemctl daemon-reload
-systemctl stop hbmon.service
-systemctl disable hbmon.service
-systemctl enable hbmon.service
-systemctl start hbmon.service
+sudo systemctl daemon-reload
+sudo systemctl stop hbmon.service
+sudo systemctl disable hbmon.service
+sudo systemctl enable hbmon.service
+sudo systemctl start hbmon.service
 #systemctl status hbmon.service
 
 cd /opt
