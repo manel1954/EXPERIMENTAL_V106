@@ -1,6 +1,6 @@
 #!/bin/bash
 
-                        sudo rm -R EXPERIMENTAL_V106
+                        sudo rm -R /home/pi/EXPERIMENTAL_V106
                         git clone http://github.com/manel1954/EXPERIMENTAL_V106                       
                         #git pull --force  
                         #cd /home/pi/A108/qt/
