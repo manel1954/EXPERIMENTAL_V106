@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo su
 clear
 #Colores  
 ROJO="\033[1;31m"
@@ -47,18 +46,18 @@ printf "${GRIS}"
 #sleep 2
 
 cd /opt
-rm -R HBlink3
+sudo rm -R HBlink3
 git clone https://github.com/lz5pn/HBlink3
-mv /opt/HBlink3/ /opt/backup/
-mv /opt/backup/HBlink3/ /opt/
-mv /opt/backup/HBmonitor/ /opt/
-mv /opt/backup/dmr_utils3/ /opt/
-rm -r /opt/backup/
+sudo mv /opt/HBlink3/ /opt/backup/
+sudo mv /opt/backup/HBlink3/ /opt/
+sudo mv /opt/backup/HBmonitor/ /opt/
+sudo mv /opt/backup/dmr_utils3/ /opt/
+sudo rm -r /opt/backup/
 
 sleep 2
 
 cd /opt/dmr_utils3
-chmod +x install.sh
+sudo chmod +x install.sh
 ./install.sh
 
 clear
@@ -71,8 +70,8 @@ printf "${GRIS}"
 sleep 2
 
 cd /opt/HBlink3
-cp hblink-SAMPLE.cfg hblink.cfg
-cp rules-SAMPLE.py rules.py
+sudo cp hblink-SAMPLE.cfg hblink.cfg
+sudo cp rules-SAMPLE.py rules.py
 
 #Crear servicio para el hblink  
 sudo cat > /lib/systemd/system/hblink.service <<- "EOF"
@@ -87,11 +86,11 @@ EOF
 
 sleep 2
 
-systemctl daemon-reload
-systemctl enable hblink
+sudo systemctl daemon-reload
+sudo systemctl enable hblink
 
 #Instalar Parrot
-chmod +x playback.py
+sudo chmod +x playback.py
 
 #Crear directorio  /var/log/hblink si no está creado
 mkdir /var/log/hblink
@@ -114,11 +113,11 @@ EOF
 
 sleep 2
 
-systemctl enable parrot.service
-systemctl start parrot.service
+sudo systemctl enable parrot.service
+sudo systemctl start parrot.service
 
 /usr/bin/python3 -m pip install --upgrade pip
-pip install --upgrade pyopenssl
+sudo pip install --upgrade pyopenssl
 
 sleep 2
 
@@ -127,12 +126,12 @@ cd /opt/HBmonitor
 sudo chmod +x install.sh
 ./install.sh
 
-cp config_SAMPLE.py config.py
+sudo cp config_SAMPLE.py config.py
 
 sleep 2
 
 #Start monitor service
-cp /opt/HBmonitor/utils/hbmon.service /lib/systemd/system/
+sudo cp /opt/HBmonitor/utils/hbmon.service /lib/systemd/system/
 systemctl daemon-reload
 systemctl stop hbmon.service
 systemctl disable hbmon.service
@@ -1391,7 +1390,7 @@ echo "              Introduce el nombre del Dashboard ej. Dashboard EA3EIZ      
 echo "=================================================================================="
 printf "${GRIS}"
 read dashboard
-sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
+sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 #sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor_CLARO/config.py
 #sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 
@@ -1404,13 +1403,13 @@ port="${ip: -2}"  # Extrae los dos últimos caracteres
 #echo "$ultimos_dos"  # Imprime "do"
 port="70"$port
 
-sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
+sudo sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
 #sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor_CLARO/config.py
 #sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
 
-sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
-sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
-sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar_cambios_en_todas_las_reglas.php
+sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
+sudo sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
+sudo sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar_cambios_en_todas_las_reglas.php
 
 #sed -i "235c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
 #sed -i "236c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
@@ -1424,21 +1423,21 @@ sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar
 
 
 
-sed -i "307c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
-sed -i "308c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
+sudo sed -i "307c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
+sudo sed -i "308c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
 #sed -i "309c \<a href=\"http://$ip/hblink/cambia_claro_oscuro.php\"\>DASHBOARD OSCURO\</a>" /opt/HBmonitor/index_template.html
 #sed -i "310c \<a href=\"http://$ip/hblink/cambia_oscuro_claro.php\"\>DASHBOARD CLARO\</a>" /opt/HBmonitor/index_template.html
-sed -i "311c \<a href=\"http://$ip/hblink/cambia_nombre_dashboard.php\"\>CAMBIA NOMBRE DASHBOARD\</a>" /opt/HBmonitor/index_template.html
+sudo sed -i "311c \<a href=\"http://$ip/hblink/cambia_nombre_dashboard.php\"\>CAMBIA NOMBRE DASHBOARD\</a>" /opt/HBmonitor/index_template.html
 
 
 #sed -i "312c \<a href=\"http://$ip/hblink/cambia_peers.php\"\>CAMBIA PEERS\</a>" /opt/HBmonitor/index_template.html
 #sed -i "313c \<a href=\"http://$ip/hblink/cambia_repeat.php\"\>CAMBIA REPEAT\</a>" /opt/HBmonitor/index_template.html
-sed -i "316c \<a href=\"http://$ip/panel_control/panel_control.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
+sudo sed -i "316c \<a href=\"http://$ip/panel_control/panel_control.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
 
 
-sed -i "286c \<img class=\"imagen\" src=\"http://$ip/hblink/images/hotspots.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
-sed -i "292c \<img class=\"imagen\" src=\"http://$ip/hblink/images/repetidores.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
-sed -i "298c \<img class=\"imagen\" src=\"http://$ip/hblink/images/puentes.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
+sudo sed -i "286c \<img class=\"imagen\" src=\"http://$ip/hblink/images/hotspots.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
+sudo sed -i "292c \<img class=\"imagen\" src=\"http://$ip/hblink/images/repetidores.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
+sudo sed -i "298c \<img class=\"imagen\" src=\"http://$ip/hblink/images/puentes.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
 
 
 
@@ -1448,14 +1447,14 @@ sed -i "298c \<img class=\"imagen\" src=\"http://$ip/hblink/images/puentes.png\"
 
 
 
-chmod 777 -R /opt/HBmonitor
+sudo chmod 777 -R /opt/HBmonitor
 #chmod 777 -R /opt/HBmonitor_CLARO
 #chmod 777 -R /opt/HBmonitor_OSCURO
-chmod 777 -R /opt/HBlink3
+sudo chmod 777 -R /opt/HBlink3
 
-sed -i "3c HBLINK3_INSTALADO=OK" /var/www/html/dvs/config/estado-dvswitch-hblink.txt
+sudo sed -i "3c HBLINK3_INSTALADO=OK" /var/www/html/dvs/config/estado-dvswitch-hblink.txt
 
-systemctl restart hblink & systemctl restart hbmon & systemctl restart parrot & 
+sudo systemctl restart hblink & systemctl restart hbmon & systemctl restart parrot & 
 
 clear
 printf "${VERDE}"
