@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo su
 clear
 #Colores  
 ROJO="\033[1;31m"
