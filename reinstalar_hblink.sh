@@ -1334,8 +1334,6 @@ echo "==========================================================================
 printf "${GRIS}"
 read dashboard
 sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
-#sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor_CLARO/config.py
-#sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 
 printf "${GRIS}"
 
@@ -1347,34 +1345,12 @@ port="${ip: -2}"  # Extrae los dos últimos caracteres
 port="70"$port
 
 sudo sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
-#sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor_CLARO/config.py
-#sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
-
 sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
 sudo sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
 sudo sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar_cambios_en_todas_las_reglas.php
-
-#sed -i "235c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
-#sed -i "236c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
-#sed -i "244c \<a href=\"http://$ip/hblink/cambia_claro_oscuro.php\"\>DASHBOARD OSCURO\</a>" /opt/HBmonitor/index_template.html
-#sed -i "245c \<a href=\"http://$ip/hblink/cambia_oscuro_claro.php\"\>DASHBOARD CLARO\</a>" /opt/HBmonitor/index_template.html
-
-#sed -i "235c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor_CLARO/index_template.html
-#sed -i "236c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor_CLARO/index_template.html
-#sed -i "244c \<a href=\"http://$ip/hblink/cambia_claro_oscuro.php\"\>DASHBOARD OSCURO\</a>" /opt/HBmonitor_CLARO/index_template.html
-#sed -i "245c \<a href=\"http://$ip/hblink/cambia_oscuro_claro.php\"\>DASHBOARD CLARO\</a>" /opt/HBmonitor_CLARO/index_template.html
-
-
-
 sudo sed -i "307c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
 sudo sed -i "308c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
-#sed -i "309c \<a href=\"http://$ip/hblink/cambia_claro_oscuro.php\"\>DASHBOARD OSCURO\</a>" /opt/HBmonitor/index_template.html
-#sed -i "310c \<a href=\"http://$ip/hblink/cambia_oscuro_claro.php\"\>DASHBOARD CLARO\</a>" /opt/HBmonitor/index_template.html
 sudo sed -i "311c \<a href=\"http://$ip/hblink/cambia_nombre_dashboard.php\"\>CAMBIA NOMBRE DASHBOARD\</a>" /opt/HBmonitor/index_template.html
-
-
-#sed -i "312c \<a href=\"http://$ip/hblink/cambia_peers.php\"\>CAMBIA PEERS\</a>" /opt/HBmonitor/index_template.html
-#sed -i "313c \<a href=\"http://$ip/hblink/cambia_repeat.php\"\>CAMBIA REPEAT\</a>" /opt/HBmonitor/index_template.html
 sudo sed -i "316c \<a href=\"http://$ip/panel_control/panel_control.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
 
 
@@ -1382,17 +1358,7 @@ sudo sed -i "286c \<img class=\"imagen\" src=\"http://$ip/hblink/images/hotspots
 sudo sed -i "292c \<img class=\"imagen\" src=\"http://$ip/hblink/images/repetidores.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
 sudo sed -i "298c \<img class=\"imagen\" src=\"http://$ip/hblink/images/puentes.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
 
-
-
-#sed -i "74c background-image: url("http://$ip/hblink/images/fondo_hblink3.png");" /opt/HBmonitor/index_template.html
-
-
-
-
-
 sudo chmod 777 -R /opt/HBmonitor
-#chmod 777 -R /opt/HBmonitor_CLARO
-#chmod 777 -R /opt/HBmonitor_OSCURO
 sudo chmod 777 -R /opt/HBlink3
 
 sudo sed -i "3c HBLINK3_INSTALADO=OK" /var/www/html/dvs/config/estado-dvswitch-hblink.txt
