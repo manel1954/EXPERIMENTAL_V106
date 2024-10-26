@@ -10,40 +10,6 @@ GRIS="\033[0m"
 
 printf "${GRIS}"
 
-#apt update
-
-#apt install apache2
-
-#apt install software-properties-common
-#add-apt-repository ppa:ondrej/php
-#apt update
-
-#apt install php7.4 
-
-#update-alternatives --config php
-
-#sudo usermod -G www-data -a pi
-
-#sudo usermod -G www-data -a pi
-
-#sudo chown www-data:www-data /home/pi
-
-#printf "${CIAN}"
-#echo "cuando se abra el visudo"
-#echo "copiar y pegar el texto siguiente: "
-#echo ""
-#printf "${AMARILLO}"
-#echo "www-data ALL=(ALL) NOPASSWD: ALL"
-#echo ""
-#printf "${CIAN}"
-#echo "Guardar y salir con ctrl+k+x"
-#echo ""
-#echo "Pulsa enter para que se abra el Visudo"
-#read a
-#visudo
-#clear
-#sleep 2
-
 cd /opt
 sudo rm -R HBlink3
 git clone https://github.com/lz5pn/HBlink3
@@ -136,7 +102,6 @@ sudo systemctl stop hbmon.service
 sudo systemctl disable hbmon.service
 sudo systemctl enable hbmon.service
 sudo systemctl start hbmon.service
-#systemctl status hbmon.service
 
 cd /opt
 
@@ -147,27 +112,6 @@ git clone http://github.com/manel1954/HBmonitor
 sleep 1
 
 sudo chmod 777 -R  /opt/HBmonitor
-
-#HBmonitor_CLARO
-#rm -R HBmonitor_CLARO
-#git clone http://github.com/manel1954/HBmonitor_CLARO
-#
-#sleep 1
-#chmod 777 -R /opt/HBmonitor_CLARO
-#rm -R /opt/HBmonitor_CLARO
-#cp -R HBmonitor_CLARO /opt/
-#chmod 777 -R  /opt/HBmonitor_CLARO
-
-#HBmonitor_OSCURO
-#rm -R HBmonitor_OSCURO 
-#git clone http://github.com/manel1954/HBmonitor_OSCURO
-#
-#sleep 1
-#chmod 777 -R /opt/HBmonitor_OSCURO
-#rm -R /opt/HBmonitor_OSCURO
-#cp -R HBmonitor_OSCURO /opt/
-#chmod 777 -R  /opt/HBmonitor_OSCURO
-
 
 #hblink              
 cd /var/www/html
