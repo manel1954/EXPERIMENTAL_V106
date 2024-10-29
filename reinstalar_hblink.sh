@@ -1339,12 +1339,9 @@ printf "${GRIS}"
 
 sleep 1
 
-#cadena="Hola, mundo"
-port="${ip: -2}"  # Extrae los dos últimos caracteres    
-#echo "$ultimos_dos"  # Imprime "do"
-port="70"$port
+
 echo "=================================================================================="
-echo "              Introduce el puerto              "
+echo "              Introduce el puerto ej. 7008             "
 echo "=================================================================================="
 printf "${GRIS}"
 read port
