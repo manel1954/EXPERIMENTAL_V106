@@ -1374,12 +1374,13 @@ sudo systemctl restart hblink & systemctl restart hbmon & systemctl restart parr
 
 clear
 printf "${VERDE}"
-echo -e "\n\n\n\n\n\n\n"
+
 echo "=================================================================================="
 echo "                      HBLINK3 INSTALADO SATISFACTORIAMENTE                        "
 echo "=================================================================================="
 printf "${GRIS}"
 sleep 3
 clear
+exit
 
 
