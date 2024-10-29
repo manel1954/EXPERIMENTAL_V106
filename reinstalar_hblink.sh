@@ -1342,7 +1342,7 @@ sleep 1
 clear
 printf "${CIAN}"
 echo "=================================================================================="
-echo "        Introduce el puerto que utilizará para abrir el Dashboard ej. 7890        "                                 "
+echo "        Introduce el puerto que utilizará para abrir el Dashboard ej. 7890        "
 echo "=================================================================================="
 printf "${GRIS}"
 read port
