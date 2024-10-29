@@ -1380,4 +1380,6 @@ echo "                      HBLINK3 INSTALADO SATISFACTORIAMENTE                
 echo "=================================================================================="
 printf "${GRIS}"
 sleep 3
+clear
+
 
