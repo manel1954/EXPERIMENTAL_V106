@@ -6,4 +6,4 @@ sudo systemctl disable hblink
 sudo systemctl disable hbmon
 sudo systemctl disable parrot
 
-sed -i "101c HBLINK=ON" /home/pi/status.ini
+sed -i "101c HBLINK=OFF" /home/pi/status.ini
