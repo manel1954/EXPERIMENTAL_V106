@@ -29,7 +29,7 @@ clear
 printf "${CIAN}"
 
 echo "=================================================================================="
-echo "                                INSTALANDO HBLINK3 xxxxxxxx                               "
+echo "                                INSTALANDO HBLINK3                                "
 echo "=================================================================================="
 printf "${GRIS}"
 sleep 2
@@ -1327,7 +1327,7 @@ ip=$(awk "NR==1" /home/pi/ip.txt)
 
 clear
 printf "${CIAN}"
-echo -e "\n\n\n"
+
 echo "=================================================================================="
 echo "              Introduce el nombre del Dashboard ej. Dashboard EA3EIZ              "
 echo "=================================================================================="
