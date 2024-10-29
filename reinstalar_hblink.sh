@@ -1343,6 +1343,12 @@ sleep 1
 port="${ip: -2}"  # Extrae los dos últimos caracteres    
 #echo "$ultimos_dos"  # Imprime "do"
 port="70"$port
+echo "=================================================================================="
+echo "              Introduce el puerto              "
+echo "=================================================================================="
+printf "${GRIS}"
+read port
+#sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 
 sudo sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
 sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
