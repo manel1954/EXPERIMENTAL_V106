@@ -1355,6 +1355,16 @@ sudo sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/ap
 sudo sed -i "307c \<a href=\"http://$ip/hblink/editar_reglas.php\"\>CONFIGURACION ACTIVAR DESACTIVAR REGLAS\</a\>" /opt/HBmonitor/index_template.html
 sudo sed -i "308c \<a href=\"http://$ip/hblink/editar_reglas_cambios.php\"\>CREAR EDITAR PARAMETROS REGLAS\</a\>" /opt/HBmonitor/index_template.html
 sudo sed -i "311c \<a href=\"http://$ip/hblink/cambia_nombre_dashboard.php\"\>CAMBIA NOMBRE DASHBOARD\</a>" /opt/HBmonitor/index_template.html
+
+
+sudo sed -i "312c \<a href=\"http://$ip/hblink/cambia_peers.php\"\>CAMBIA PEERS\</a\>" /opt/HBmonitor/index_template.html
+sudo sed -i "313c \<a href=\"http://$ip/hblink/cambia_repeat.php\"\>CAMBIA REPEAT\</a\>" /opt/HBmonitor/index_template.html
+sudo sed -i "314c \<a href=\"http://$ip/hblink/cambia_puentes.php\"\>CAMBIA PUENTES\</a\>" /opt/HBmonitor/index_template.html
+sudo sed -i "315c \<a href=\"http://$ip/hblink/restaurar_servicios.php\"\>RESTAURAR SERVICIOS\</a\>" /opt/HBmonitor/index_template.html
+
+
+
+
 sudo sed -i "316c \<a href=\"http://$ip/panel_control/panel_control.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
 
 
