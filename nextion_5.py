@@ -27,7 +27,7 @@ labels = {
     "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),
     "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
     "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),  
-    "IP/TG": tk.Label(root, text="IP/TG: N/A", fg="#ff0", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
+    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
     
     #"TG": tk.Label(root, text="TG: N/A", fg="white", bg="#483d8b", anchor="w"),
     "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", anchor="w",font=("Arial", 16, "bold")),
@@ -90,9 +90,9 @@ def parse_data(data_str):
     if freq_match:
         result["Frecuencia"] = freq_match.group(1)
 
-    ip_match = re.search(r't3.txt="([^"]+)"', data_str)
+    ip_match = re.search(r'20t3.txt="([^"]+)"', data_str)
     if ip_match:
-        result["IP/TG"] = ip_match.group(1)
+        result["IP"] = ip_match.group(1)
 
     temp_match = re.search(r'1t20.txt="([^"]+)"', data_str)
     if temp_match:
