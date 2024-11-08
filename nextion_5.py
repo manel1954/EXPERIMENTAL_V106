@@ -16,7 +16,7 @@ BAUD_RATE = 9600
 # Configuración de la ventana de Tkinter
 root = tk.Tk()
 root.title("Monitor MMDVMHost - Nextion")
-root.geometry("350x250+20+380")
+root.geometry("350x250+20+375")
 root.configure(bg="#483d8b")
 
 # Crear widgets para mostrar datos
