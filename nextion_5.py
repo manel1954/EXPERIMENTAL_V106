@@ -21,7 +21,7 @@ root.configure(bg="#483d8b")
 
 # Crear widgets para mostrar datos
 labels = {
-    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
     "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
     "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
     "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
