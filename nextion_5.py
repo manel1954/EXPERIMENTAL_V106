@@ -17,7 +17,7 @@ BAUD_RATE = 9600
 root = tk.Tk()
 root.title("Monitor MMDVMHost - Nextion")
 root.geometry("350x250+13+372")
-#root.configure(bg="#152637")
+root.configure(bg="#152637")
 
 # Crear widgets para mostrar datos
 labels = {
