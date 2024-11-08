@@ -31,7 +31,7 @@ labels = {
     
     #"TG": tk.Label(root, text="TG: N/A", fg="white", bg="#483d8b", anchor="w"),
     "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", anchor="w",font=("Arial", 16, "bold")),
-   
+    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", anchor="w",font=("Arial", 12, "bold")),
 }
 
 for idx, label in enumerate(labels.values()):
@@ -105,6 +105,10 @@ def parse_data(data_str):
     status_match = re.search(r'1t0.txt="([^"]+)"', data_str)
     if status_match:
         result["Estado"] = status_match.group(1)
+        
+    ber_match = re.search(r'1t7.txt="([^"]+)"', data_str)
+    if ber_match:
+        result["Ber"] = ber_match.group(1)
 
     return result
 
