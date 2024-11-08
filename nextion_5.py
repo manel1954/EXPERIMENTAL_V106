@@ -3,8 +3,8 @@ import tkinter as tk
 import serial
 import threading
 import re
-from colorama import Fore, Back, Style
-from colorama import init
+from queue import Queue
+from colorama import Fore, Style, init
 
 # Inicializar colorama para colores en la consola
 init()
@@ -33,27 +33,13 @@ labels = {
 for label in labels.values():
     label.pack(fill="x", padx=10, pady=2)
 
+# Cola para comunicar datos entre hilos
+data_queue = Queue()
+
 # Función para actualizar etiquetas en la GUI
 def update_label(field, value):
     if field in labels:
         labels[field].config(text=f"{field}: {value}")
-
-# Función para leer los datos del puerto serie
-def read_data():
-    try:
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
-            while True:
-                data = ser.readline()
-                if data:
-                    data_str = data.decode('utf-8', errors='ignore')
-                    print(Fore.WHITE + f"Datos recibidos: {data_str}" + Style.RESET_ALL)
-                    parsed_data = parse_data(data_str)
-                    for key, value in parsed_data.items():
-                        root.after(0, update_label, key, value)
-    except serial.SerialException as e:
-        print(Fore.RED + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
-    except Exception as e:
-        print(Fore.RED + f"Error desconocido: {e}" + Style.RESET_ALL)
 
 # Función para procesar los datos recibidos
 def parse_data(data_str):
@@ -77,9 +63,36 @@ def parse_data(data_str):
 
     return result
 
+# Función para leer los datos del puerto serie en un hilo separado
+def read_data():
+    try:
+        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
+            while True:
+                data = ser.readline()
+                if data:
+                    data_str = data.decode('utf-8', errors='ignore')
+                    print(Fore.WHITE + f"Datos recibidos: {data_str}" + Style.RESET_ALL)
+                    parsed_data = parse_data(data_str)
+                    data_queue.put(parsed_data)  # Colocar los datos en la cola
+    except serial.SerialException as e:
+        print(Fore.RED + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
+    except Exception as e:
+        print(Fore.RED + f"Error desconocido: {e}" + Style.RESET_ALL)
+
+# Función para sincronizar datos con la GUI
+def sync_data():
+    while not data_queue.empty():
+        parsed_data = data_queue.get()
+        for key, value in parsed_data.items():
+            update_label(key, value)
+    root.after(100, sync_data)  # Llamar de nuevo tras 100 ms
+
 # Crear un hilo para la lectura de los datos
 read_thread = threading.Thread(target=read_data, daemon=True)
 read_thread.start()
+
+# Iniciar sincronización de datos en la GUI
+sync_data()
 
 # Ejecutar la interfaz gráfica
 root.mainloop()
