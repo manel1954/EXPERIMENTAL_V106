@@ -88,7 +88,7 @@ def sync_data():
     root.after(100, sync_data)  # Llamar de nuevo tras 100 ms
 
 # Crear un hilo para la lectura de los datos
-read_thread = threading.Thread(target=read_data, daemon=False)
+read_thread = threading.Thread(target=read_data, daemon=True)
 read_thread.start()
 
 # Iniciar sincronización de datos en la GUI
