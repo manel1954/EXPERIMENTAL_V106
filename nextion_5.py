@@ -17,18 +17,18 @@ BAUD_RATE = 9600
 root = tk.Tk()
 root.title("Monitor MMDVMHost - Nextion")
 root.geometry("350x250+13+372")
-root.configure(bg="#152637")
+#root.configure(bg="#152637")
 
 # Crear widgets para mostrar datos
 labels = {
-    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", font=("Arial", 16, "bold"), anchor="w"),
-    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", font=("Arial", 16, "bold"), anchor="w"),
-    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", font=("Arial", 12, "bold"), anchor="w"),
-    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
-    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
-    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
-    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
-    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
+    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
+    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
+    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
+    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
+    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
+    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
+    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
 }
 
 for label in labels.values():
