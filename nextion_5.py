@@ -21,13 +21,15 @@ root.configure(bg="#483d8b")
 
 # Crear widgets para mostrar datos
 labels = {
-    "Hotspot": tk.Label(root, text="Hotspot: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
+    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
     "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
     "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", font=("Arial", 12, "bold")),
     "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold")),
     "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", font=("Arial", 12, "bold")),
     "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold")),
     "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 12, "bold")),
+    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
+
 }
 
 for label in labels.values():
@@ -47,13 +49,14 @@ def parse_data(data_str):
     
     # Expresiones regulares para extraer datos
     patterns = {
-        "Hotspot": r'20t0.txt="([^"]+)"',
+        "Estacion": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t2.txt="([^"]+)"',
         "Frecuencia": r'1t32.txt="([^"]+)"',
         "IP": r'20t3.txt="([^"]+)"',
         "Temperatura": r'1t20.txt="([^"]+)"',
         "Estado": r'1t0.txt="([^"]+)"',
         "Ber": r'1t7.txt="([^"]+)"',
+        "MMDVM": r'1t1.txt="([^"]+)"',
     }
     
     for key, pattern in patterns.items():
