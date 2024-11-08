@@ -31,8 +31,10 @@ labels = {
     "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
 }
 
-for label in labels.values():
-    label.pack(fill="x", padx=10, pady=2, anchor="w")  # Alinear las etiquetas a la izquierda
+# Empaquetar las etiquetas, excepto TX/RX
+for key, label in labels.items():
+    if key != "TX/RX":
+        label.pack(fill="x", padx=10, pady=2, anchor="w")
 
 # Cola para comunicar datos entre hilos
 data_queue = Queue()
@@ -40,7 +42,14 @@ data_queue = Queue()
 # Función para actualizar etiquetas en la GUI
 def update_label(field, value):
     if field in labels:
-        labels[field].config(text=f"{field}: {value}")
+        if field == "TX/RX":  # Controlar la visibilidad de TX/RX
+            if value.strip():  # Mostrar solo si hay un valor no vacío
+                labels[field].config(text=f"{field}: {value}")
+                labels[field].pack(fill="x", padx=10, pady=2, anchor="w")  # Mostrar etiqueta
+            else:
+                labels[field].pack_forget()  # Ocultar etiqueta
+        else:
+            labels[field].config(text=f"{field}: {value}")
 
 # Función para procesar los datos recibidos
 def parse_data(data_str):
