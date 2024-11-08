@@ -21,19 +21,18 @@ root.configure(bg="#483d8b")
 
 # Crear widgets para mostrar datos
 labels = {
-    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
-    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
-    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", font=("Arial", 12, "bold")),
-    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold")),
-    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", font=("Arial", 12, "bold")),
-    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold")),
-    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 12, "bold")),
-    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold")),
-
+    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
+    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
+    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
+    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 12, "bold"), anchor="w"),
+    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#483d8b", font=("Arial", 16, "bold"), anchor="w"),
 }
 
 for label in labels.values():
-    label.pack(fill="x", padx=10, pady=2)
+    label.pack(fill="x", padx=10, pady=2, anchor="w")  # Alinear las etiquetas a la izquierda
 
 # Cola para comunicar datos entre hilos
 data_queue = Queue()
