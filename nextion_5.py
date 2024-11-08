@@ -55,7 +55,7 @@ def parse_data(data_str):
         "Temperatura": r'1t20.txt="([^"]+)"',
         "Estado": r'1t0.txt="([^"]+)"',
         "Ber": r'1t7.txt="([^"]+)"',
-        "MMDVM": u'1t1.txt="([^"]+)"',
+        "MMDVM": r'1t1.txt="([^"]+)"',
     }
     
     for key, pattern in patterns.items():
