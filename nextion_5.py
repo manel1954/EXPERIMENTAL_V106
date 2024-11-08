@@ -3,118 +3,108 @@ import tkinter as tk
 import serial
 import threading
 import re
-from colorama import Fore, Back, Style
+from colorama import Fore, Back, Style, init
 
 # Inicializar colorama para colores en la consola
-from colorama import init
 init()
 
-# Puerto serie virtual donde MMDVMHost enviará los comandos
-SERIAL_PORT = "/dev/virtual2"  # Asegúrate de que coincida con el puerto de socat
+# Configuración de puerto serie
+SERIAL_PORT = "/dev/virtual2"  # Ajusta para que coincida con el puerto de socat
 BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
-root = tk.Tk()
-root.title("Monitor MMDVMHost - Nextion")
-root.geometry("350x210+20+400")  # Posiciona la ventana a 100px desde la izqu
-#root.geometry("300x200")
-root.configure(bg="#483d8b")  # Fondo negro para la ventana
+WINDOW_TITLE = "Monitor MMDVMHost - Nextion"
+WINDOW_SIZE = "480x340+25+55"  # Tamaño y posición específica de la ventana
+WINDOW_BG_COLOR = "#303841"  # Fondo oscuro
 
-# Crear widgets para mostrar datos
-labels = {
-    #"Fecha y Hora": tk.Label(root, text="Fecha y Hora: --/--/-- --:--:--", fg="white", bg="#483d8b", anchor="w"),
-    "Hotspot": tk.Label(root, text="Hotspot: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),
-    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),
-    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
-    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),  
-    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
-    
-    #"TG": tk.Label(root, text="TG: N/A", fg="white", bg="#483d8b", anchor="w"),
-    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", anchor="w",font=("Arial", 16, "bold")),
-    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#483d8b", anchor="w",font=("Arial", 12, "bold")),
+# Crear ventana principal
+root = tk.Tk()
+root.title(WINDOW_TITLE)
+root.geometry(WINDOW_SIZE)  # Restablece la posición de la ventana
+root.configure(bg=WINDOW_BG_COLOR)
+
+# Icono de ventana (si tienes un archivo .ico)
+# root.iconbitmap("icono.ico")  # Reemplaza "icono.ico" con la ruta del archivo de icono
+
+# Diccionario de configuración de etiquetas para un estilo uniforme
+LABEL_CONFIGS = {
+    "Estación": {"fg": "#00adb5", "font": ("Arial", 16, "bold")},
+    "Frecuencia": {"fg": "#00adb5", "font": ("Arial", 16, "bold")},
+    "TX/RX": {"fg": "white", "font": ("Arial", 16, "bold")},
+    "IP": {"fg": "#eeeeee", "font": ("Arial", 12, "bold")},
+    "MMDVM": {"fg": "#eeeeee", "font": ("Arial", 12, "normal")},
+    "Estado": {"fg": "white", "font": ("Arial", 16, "bold")},
+    "Temperatura": {"fg": "#ff5722", "font": ("Arial", 14, "bold")},
+    "Ber": {"fg": "#ffdd59", "font": ("Arial", 16, "bold")},
 }
 
-for idx, label in enumerate(labels.values()):
-    label.pack(fill="x", padx=10, pady=2)
-
-# Botón para salir de la aplicación
-#exit_button = tk.Button(root, text="Salir", command=root.quit, bg="green", fg="white", font=("Arial", 12, "bold"))
-#exit_button.pack(pady=10)
+# Contenedor de etiquetas
+labels = {}
+for label_name, config in LABEL_CONFIGS.items():
+    frame = tk.Frame(root, bg=WINDOW_BG_COLOR, pady=5)
+    frame.pack(fill="x", padx=10, pady=2)
+    label = tk.Label(frame, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, anchor="w", **config)
+    label.pack(side="left", padx=10)
+    labels[label_name] = label
 
 # Función para actualizar etiquetas en la GUI
 def update_label(field, value):
     if field in labels:
         labels[field].config(text=f"{field}: {value}")
 
-# Función para leer los datos del puerto serie
-def read_data():
+# Función para leer y actualizar datos de manera no bloqueante
+def read_data_non_blocking():
     try:
-        # Abre el puerto serie para leer los datos
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
-            while True:
-                # Lee los datos del puerto serie
-                data = ser.readline()
-                if data:
-                    data_str = data.decode('utf-8', errors='ignore')  # Decodificar los datos
-                    print(Fore.WHITE + Back.BLACK + f"Datos recibidos: {data_str}" + Style.RESET_ALL)  # Fondo negro
-                    parsed_data = parse_data(data_str)
-                    for key, value in parsed_data.items():
-                        root.after(0, update_label, key, value)
-
+        # Abre el puerto serie
+        ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
     except serial.SerialException as e:
         print(Fore.RED + Back.BLACK + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
-    except Exception as e:
-        print(Fore.RED + Back.BLACK + f"Error desconocido: {e}" + Style.RESET_ALL)
+        return
 
+    def poll_serial():
+        """Función que se ejecuta periódicamente para leer del puerto serie."""
+        if ser.in_waiting > 0:
+            data = ser.readline()
+            if data:
+                data_str = data.decode('utf-8', errors='ignore')
+                print(Fore.WHITE + Back.BLACK + f"Datos recibidos: {data_str}" + Style.RESET_ALL)
+                parsed_data = parse_data(data_str)
+                for key, value in parsed_data.items():
+                    update_label(key, value)
+        
+        # Llama de nuevo a poll_serial después de 100 ms
+        root.after(100, poll_serial)
+    
+    # Inicia la función de polling de serie
+    poll_serial()
+
+# Función para procesar y extraer datos del string recibido
 def parse_data(data_str):
     """
-    Función para procesar y ordenar los datos de acuerdo con el formato esperado.
-    Extrae la fecha, indicativo, frecuencia, IP y otros campos de los comandos.
+    Extrae información específica de los datos recibidos usando expresiones regulares.
     """
     result = {}
 
-    # Buscar las distintas partes de los comandos usando expresiones regulares
-    #date_match = re.search(r't2.txt="([0-9/ :]+)"', data_str)
-    #if date_match:
-    #    result["Fecha y Hora"] = date_match.group(1)
+    match_patterns = {
+        "Estación": r'20t0.txt="([^"]+)"',
+        "Frecuencia": r'1t32.txt="([^"]+)"',
+        "TX/RX": r'50t2.txt="([^"]+)"',
+        "IP": r'20t3.txt="([^"]+)"',
+        "MMDVM": r'1t1.txt="([^"]+)"',
+        "Estado": r'1t0.txt="([^"]+)"',
+        "Temperatura": r'1t20.txt="([^"]+)"',
+        "Ber": r'1t7.txt="([^"]+)"',
+    }
 
-    hotspot_match = re.search(r'20t0.txt="([^"]+)"', data_str)
-    if hotspot_match:
-        result["Hotspot"] = hotspot_match.group(1)
-    
-    indicativo_match = re.search(r'50t2.txt="([^"]+)"', data_str)
-    if indicativo_match:
-        result["TX/RX"] = indicativo_match.group(1)
-
-    freq_match = re.search(r'1t32.txt="([^"]+)"', data_str)
-    if freq_match:
-        result["Frecuencia"] = freq_match.group(1)
-
-    ip_match = re.search(r'20t3.txt="([^"]+)"', data_str)
-    if ip_match:
-        result["IP"] = ip_match.group(1)
-
-    temp_match = re.search(r'1t20.txt="([^"]+)"', data_str)
-    if temp_match:
-        result["Temperatura"] = temp_match.group(1)
-
-    #tg_match = re.search(r'1t10.txt="([^"]+)"', data_str)
-    #if tg_match:
-    #    result["TG"] = tg_match.group(1)
-
-    status_match = re.search(r'1t0.txt="([^"]+)"', data_str)
-    if status_match:
-        result["Estado"] = status_match.group(1)
-        
-    ber_match = re.search(r'1t7.txt="([^"]+)"', data_str)
-    if ber_match:
-        result["Ber"] = ber_match.group(1)
+    for key, pattern in match_patterns.items():
+        match = re.search(pattern, data_str)
+        if match:
+            result[key] = match.group(1)
 
     return result
 
-# Crear un hilo para la lectura de los datos
-read_thread = threading.Thread(target=read_data, daemon=True)
-read_thread.start()
+# Iniciar hilo para la lectura de datos en modo no bloqueante
+threading.Thread(target=read_data_non_blocking, daemon=True).start()
 
 # Ejecutar la interfaz gráfica de Tkinter
 root.mainloop()
