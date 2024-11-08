@@ -15,7 +15,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 root = tk.Tk()
-root.title("Monitor de Comandos de MMDVMHost - Nextion")
+root.title("Monitor MMDVMHost - Nextion")
 root.geometry("350x210+20+400")  # Posiciona la ventana a 100px desde la izqu
 #root.geometry("300x200")
 root.configure(bg="#483d8b")  # Fondo negro para la ventana
@@ -24,10 +24,11 @@ root.configure(bg="#483d8b")  # Fondo negro para la ventana
 labels = {
     #"Fecha y Hora": tk.Label(root, text="Fecha y Hora: --/--/-- --:--:--", fg="white", bg="#483d8b", anchor="w"),
     "Hotspot": tk.Label(root, text="Hotspot: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),
-    "": tk.Label(root, text="Indicativo", fg="white", bg="#483d8b", anchor="w", font=("Arial", 20, "bold")),  
-    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
-    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#483d8b", anchor="w"),
+    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),
     "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
+    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#483d8b", anchor="w", font=("Arial", 16, "bold")),  
+    "IP/TG": tk.Label(root, text="IP/TG: N/A", fg="#ff0", bg="#483d8b", anchor="w", font=("Arial", 12, "bold")),
+    
     #"TG": tk.Label(root, text="TG: N/A", fg="white", bg="#483d8b", anchor="w"),
     "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#483d8b", anchor="w",font=("Arial", 16, "bold")),
    
@@ -83,7 +84,7 @@ def parse_data(data_str):
     
     indicativo_match = re.search(r'50t2.txt="([^"]+)"', data_str)
     if indicativo_match:
-        result[""] = indicativo_match.group(1)
+        result["TX/RX"] = indicativo_match.group(1)
 
     freq_match = re.search(r'1t32.txt="([^"]+)"', data_str)
     if freq_match:
@@ -91,7 +92,7 @@ def parse_data(data_str):
 
     ip_match = re.search(r't3.txt="([^"]+)"', data_str)
     if ip_match:
-        result["IP"] = ip_match.group(1)
+        result["IP/TG"] = ip_match.group(1)
 
     temp_match = re.search(r'1t20.txt="([^"]+)"', data_str)
     if temp_match:
