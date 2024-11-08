@@ -28,7 +28,7 @@ labels = {
     "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
     "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
     "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
-    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#ff8c00", bg="#333333", font=("Arial", 13, "bold"), anchor="w"),
+    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#999999", bg="#152637", font=("Arial", 13, "bold"), anchor="w"),
 }
 
 for label in labels.values():
