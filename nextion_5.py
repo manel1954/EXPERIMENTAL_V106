@@ -13,7 +13,7 @@ init()
 SERIAL_PORT = "/dev/virtual2"  # Cambia esto según tu sistema
 BAUD_RATE = 9600
 
-# Configuración de la ventana de Tkinter
+# Configuración de la ventana de Tkinter 
 root = tk.Tk()
 root.title("Monitor MMDVMHost - Nextion")
 root.geometry("350x250+13+372")
