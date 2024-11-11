@@ -1,100 +1,150 @@
 # -*- coding: utf-8 -*-
 import tkinter as tk
 import serial
-import threading
 import re
-from queue import Queue
-from colorama import Fore, Style, init
+from colorama import Fore, Back, Style, init
 
 # Inicializar colorama para colores en la consola
 init()
 
-# Configuración del puerto serie
-SERIAL_PORT = "/dev/virtual2"  # Cambia esto según tu sistema
+# Configuración de puerto serie
+SERIAL_PORT = "/dev/virtual2"  # Ajusta para que coincida con el puerto de socat
 BAUD_RATE = 9600
 
-# Configuración de la ventana de Tkinter 
-root = tk.Tk()
-root.title("Monitor MMDVMHost - Nextion")
-root.geometry("350x250+13+372")
-root.configure(bg="#152637")
+# Configuración de la ventana de Tkinter
+WINDOW_TITLE = "Monitor MMDVMHost - Nextion"
+WINDOW_SIZE = "480x250+25+95"  # Dimensiones fijas
+WINDOW_BG_COLOR = "#303841"
 
-# Crear widgets para mostrar datos
-labels = {
-    "Estacion": tk.Label(root, text="Estacion: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
-    "Frecuencia": tk.Label(root, text="Frecuencia: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
-    "Temperatura": tk.Label(root, text="Temperatura: N/A", fg="yellow", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
-    "TX/RX": tk.Label(root, text="TX/RX: N/A", fg="white", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
-    "IP": tk.Label(root, text="IP: N/A", fg="#ff0", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
-    "Estado": tk.Label(root, text="Estado: N/A", fg="white", bg="#152637", font=("Arial", 16, "bold"), anchor="w"),
-    "Ber": tk.Label(root, text="Ber: N/A", fg="#ff8c00", bg="#152637", font=("Arial", 12, "bold"), anchor="w"),
-    "MMDVM": tk.Label(root, text="MMDVM: N/A", fg="#999999", bg="#152637", font=("Arial", 13, "bold"), anchor="w"),
+# Crear ventana principal
+root = tk.Tk()
+root.title(WINDOW_TITLE)
+root.geometry(WINDOW_SIZE)
+root.configure(bg=WINDOW_BG_COLOR)
+
+# Asegurar que la ventana no cambie de tamaño
+root.resizable(False, False)
+
+# Configuración de las columnas para que se distribuyan equitativamente
+root.columnconfigure(0, weight=1, uniform="equal")
+root.columnconfigure(1, weight=1, uniform="equal")
+
+# Fijar la fila de la estación sin que se vea afectada por las otras filas
+root.rowconfigure(0, weight=0)
+
+# Diccionario de configuración de etiquetas con colores modificados para "Frecuencia RX" y "Frecuencia TX"
+LABEL_CONFIGS = {
+    "Frecuencia RX": {"fg": "green", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
+    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
+    "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
+    "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
+    "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
+    "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
+    "Temp": {"fg": "#ff5722", "font": ("Arial", 12, "bold"), "row": 5, "column": 0},
+    
 }
 
-for label in labels.values():
-    label.pack(fill="x", padx=10, pady=2, anchor="w")  # Alinear las etiquetas a la izquierda
+# Contenedor de etiquetas
+labels = {}
 
-# Cola para comunicar datos entre hilos
-data_queue = Queue()
+# Crear la etiqueta "Estación" en una fila separada (sin que se vea afectada por las demás columnas)
+estacion_label = tk.Label(root, text="Estación: N/A", bg=WINDOW_BG_COLOR, fg="#00adb5", font=("Arial", 24, "bold"))
+estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="w")
 
-# Función para actualizar etiquetas en la GUI
+# Crear la etiqueta "TX/RX" debajo de la estación, en una nueva fila
+txrx_label = tk.Label(root, text="TX/RX: N/A", bg=WINDOW_BG_COLOR, fg="white", font=("Arial", 20, "bold"))
+txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+
+# Agregar las otras etiquetas a la cuadrícula, comenzando desde la fila 2
+for label_name, config in LABEL_CONFIGS.items():
+    label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, anchor="w", fg=config["fg"], font=config["font"])
+    label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="w")
+    labels[label_name] = label
+
+# Abre el puerto serie una vez
+try:
+    ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
+except serial.SerialException as e:
+    print(Fore.RED + Back.BLACK + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
+    ser = None
+
+# Función para actualizar etiquetas en la GUI solo si el valor cambió
 def update_label(field, value):
-    if field in labels:
+    if field in labels and labels[field].cget("text") != f"{field}: {value}":
         labels[field].config(text=f"{field}: {value}")
 
-# Función para procesar los datos recibidos
+# Función para actualizar la etiqueta "Estación" directamente
+def update_estacion(value):
+    if estacion_label.cget("text") != f"Estación: {value}":
+        estacion_label.config(text=f"Estación: {value}")
+
+# Función para actualizar la etiqueta "TX/RX" directamente
+def update_txrx(value):
+    if txrx_label.cget("text") != f"TX/RX: {value}":
+        txrx_label.config(text=f"TX/RX: {value}")
+
+# Función para leer y actualizar datos del puerto serie
+def read_data():
+    if ser and ser.in_waiting > 0:
+        data = ser.readline()
+        if data:
+            data_str = data.decode('utf-8', errors='ignore')
+            
+            # Mostrar todos los datos recibidos en la terminal
+            print(Fore.WHITE + Back.BLACK + f"Trafico del puerto serie: {data_str.strip()}" + Style.RESET_ALL)
+            
+            # Procesar los datos para extraer los campos relevantes
+            parsed_data = parse_data(data_str)
+            
+            # Mostrar los datos procesados de forma ordenada
+            print_formatted_data(parsed_data)
+            
+            # Actualizar los valores en la interfaz gráfica
+            for key, value in parsed_data.items():
+                update_label(key, value)
+            
+            # Actualizar la etiqueta "Estación" con el valor correspondiente
+            if "Estación" in parsed_data:
+                update_estacion(parsed_data["Estación"])
+            
+            # Actualizar la etiqueta "TX/RX" con el valor correspondiente
+            if "TX/RX" in parsed_data:
+                update_txrx(parsed_data["TX/RX"])
+    
+    root.after(100, read_data)  # Llama a read_data de nuevo después de 100 ms
+
+# Función para procesar y extraer datos del string recibido
 def parse_data(data_str):
     result = {}
-    
-    # Expresiones regulares para extraer datos
-    patterns = {
-        "Estacion": r'20t0.txt="([^"]+)"',
+    match_patterns = {
+        "Estación": r'20t0.txt="([^"]+)"',
+        "Frecuencia RX": r'1t30.txt="([^"]+)"',
+        "Frecuencia TX": r'1t32.txt="([^"]+)"',
         "TX/RX": r'50t2.txt="([^"]+)"',
-        "Frecuencia": r'1t32.txt="([^"]+)"',
-        "IP": r'20t3.txt="([^"]+)"',
-        "Temperatura": r'1t20.txt="([^"]+)"',
+        "IP": r'1t3.txt="([^"]+)"',
         "Estado": r'1t0.txt="([^"]+)"',
         "Ber": r'1t7.txt="([^"]+)"',
-        "MMDVM": r'1t1.txt="([^"]+)"',
+        "RSSI": r'1t5.txt="([^"]+)"',
+        "Temp": r'1t20.txt="([^"]+)"',
     }
-    
-    for key, pattern in patterns.items():
+
+    for key, pattern in match_patterns.items():
         match = re.search(pattern, data_str)
         if match:
             result[key] = match.group(1)
 
     return result
 
-# Función para leer los datos del puerto serie en un hilo separado
-def read_data():
-    try:
-        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1) as ser:
-            while True:
-                data = ser.readline()
-                if data:
-                    data_str = data.decode('utf-8', errors='ignore')
-                    print(Fore.WHITE + f"Datos recibidos: {data_str}" + Style.RESET_ALL)
-                    parsed_data = parse_data(data_str)
-                    data_queue.put(parsed_data)  # Colocar los datos en la cola
-    except serial.SerialException as e:
-        print(Fore.RED + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
-    except Exception as e:
-        print(Fore.RED + f"Error desconocido: {e}" + Style.RESET_ALL)
+# Función para imprimir los datos de forma organizada en la terminal
+def print_formatted_data(parsed_data):
+    print(Fore.WHITE + Back.BLACK + "Datos recibidos:" + Style.RESET_ALL)
+    print(f"{'Campo':<15} {'Valor'}")
+    print("-" * 30)
+    for key, value in parsed_data.items():
+        print(f"{key:<15}: {value}")
 
-# Función para sincronizar datos con la GUI
-def sync_data():
-    while not data_queue.empty():
-        parsed_data = data_queue.get()
-        for key, value in parsed_data.items():
-            update_label(key, value)
-    root.after(100, sync_data)  # Llamar de nuevo tras 100 ms
+# Iniciar la lectura de datos
+read_data()
 
-# Crear un hilo para la lectura de los datos
-read_thread = threading.Thread(target=read_data, daemon=True)
-read_thread.start()
-
-# Iniciar sincronización de datos en la GUI
-sync_data()
-
-# Ejecutar la interfaz gráfica
+# Ejecutar la interfaz gráfica de Tkinter
 root.mainloop()
