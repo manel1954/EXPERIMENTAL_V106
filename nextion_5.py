@@ -13,8 +13,8 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "Monitor MMDVMHost - Nextion"
-WINDOW_SIZE = "480x250+25+95"  # Dimensiones fijas
-WINDOW_BG_COLOR = "#303841"
+WINDOW_SIZE = "480x250+13+372"  # Dimensiones fijas
+WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
 root = tk.Tk()
