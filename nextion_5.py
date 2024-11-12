@@ -22,6 +22,14 @@ root.title(WINDOW_TITLE)
 root.geometry(WINDOW_SIZE)
 root.configure(bg=WINDOW_BG_COLOR)
 
+
+# Agregar un borde blanco de 3px alrededor de la ventana
+root.config(
+    bd=3,  # Border width
+    highlightbackground="white",  # Color del borde
+    highlightthickness=3  # Grosor del borde
+)
+
 # Asegurar que la ventana no cambie de tamaño
 root.resizable(False, False)
 
