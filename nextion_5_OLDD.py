@@ -12,9 +12,9 @@ SERIAL_PORT = "/dev/virtual2"  # Ajusta para que coincida con el puerto de socat
 BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
-WINDOW_TITLE = "MMDVMHost Virtual Nextion"
-WINDOW_SIZE = "480x250+25+95"  # Dimensiones fijas
-WINDOW_BG_COLOR = "#303841"
+WINDOW_TITLE = "Monitor MMDVMHost - Nextion"
+WINDOW_SIZE = "480x250+13+372"  # Dimensiones fijas
+WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
 root = tk.Tk()
@@ -34,13 +34,14 @@ root.rowconfigure(0, weight=0)
 
 # Diccionario de configuración de etiquetas con colores modificados para "Frecuencia RX" y "Frecuencia TX"
 LABEL_CONFIGS = {
-    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
+    "Frecuencia RX": {"fg": "green", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
     "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 12, "bold"), "row": 5, "column": 0},
+    
 }
 
 # Contenedor de etiquetas
@@ -82,38 +83,33 @@ def update_txrx(value):
     if txrx_label.cget("text") != f"TX/RX: {value}":
         txrx_label.config(text=f"TX/RX: {value}")
 
-# Función para borrar la pantalla (solo "TX/RX", "Ber", "RSSI")
-def clear_screen():
-    txrx_label.config(text="TX/RX: N/A")
-    labels["Ber"].config(text="Ber: N/A")
-    labels["RSSI"].config(text="RSSI: N/A")
-
 # Función para leer y actualizar datos del puerto serie
 def read_data():
     if ser and ser.in_waiting > 0:
-        try:
-            data = ser.read(ser.in_waiting)  # Leer todos los bytes disponibles
+        data = ser.readline()
+        if data:
             data_str = data.decode('utf-8', errors='ignore')
+            
             # Mostrar todos los datos recibidos en la terminal
             print(Fore.WHITE + Back.BLACK + f"Trafico del puerto serie: {data_str.strip()}" + Style.RESET_ALL)
-        except UnicodeDecodeError as e:
-            print(Fore.RED + f"Error de decodificación: {e}" + Style.RESET_ALL)
-            return  # Evita continuar si hay error en la decodificación
-        
-        # Procesar y actualizar datos
-        parsed_data = parse_data(data_str)
-        print_formatted_data(parsed_data)
-        
-        # Borrar la pantalla si se detecta "Fecha y Hora"
-        if "Fecha y Hora" in parsed_data:
-            clear_screen()
-        
-        for key, value in parsed_data.items():
-            update_label(key, value)
-        if "Estación" in parsed_data:
-            update_estacion(parsed_data["Estación"])
-        if "TX/RX" in parsed_data:
-            update_txrx(parsed_data["TX/RX"])
+            
+            # Procesar los datos para extraer los campos relevantes
+            parsed_data = parse_data(data_str)
+            
+            # Mostrar los datos procesados de forma ordenada
+            print_formatted_data(parsed_data)
+            
+            # Actualizar los valores en la interfaz gráfica
+            for key, value in parsed_data.items():
+                update_label(key, value)
+            
+            # Actualizar la etiqueta "Estación" con el valor correspondiente
+            if "Estación" in parsed_data:
+                update_estacion(parsed_data["Estación"])
+            
+            # Actualizar la etiqueta "TX/RX" con el valor correspondiente
+            if "TX/RX" in parsed_data:
+                update_txrx(parsed_data["TX/RX"])
     
     root.after(100, read_data)  # Llama a read_data de nuevo después de 100 ms
 
@@ -121,32 +117,21 @@ def read_data():
 def parse_data(data_str):
     result = {}
     match_patterns = {
-        "Fecha y Hora": r't2.txt="([^"]+)"',  # Añadido patrón para detectar Fecha y Hora en t2.txt
         "Estación": r'20t0.txt="([^"]+)"',
-        "TX/RX": r'50t2.txt="([^"]+)"',
         "Frecuencia RX": r'1t30.txt="([^"]+)"',
         "Frecuencia TX": r'1t32.txt="([^"]+)"',
+        "TX/RX": r'50t2.txt="([^"]+)"',
         "IP": r'1t3.txt="([^"]+)"',
         "Estado": r'1t0.txt="([^"]+)"',
-        "Ber": r't7.txt="([^"]+)"',
-        "RSSI": r't5.txt="([^"]+)"',
+        "Ber": r'1t7.txt="([^"]+)"',
+        "RSSI": r'1t5.txt="([^"]+)"',
         "Temp": r'1t20.txt="([^"]+)"',
     }
 
     for key, pattern in match_patterns.items():
         match = re.search(pattern, data_str)
         if match:
-            value = match.group(1)
-
-            # Solo añadir el valor de RSSI si contiene un guion (-)
-            if key == "RSSI" and '-' not in value:
-                continue  # Si no tiene el guion, no lo añadimos al resultado
-
-            # Solo añadir el valor de IP si contiene ':'
-            if key == "IP" and ':' not in value:
-                continue  # Si no tiene dos puntos, no lo añadimos al resultado
-
-            result[key] = value  # Añadir el valor al resultado solo si cumple las condiciones
+            result[key] = match.group(1)
 
     return result
 
