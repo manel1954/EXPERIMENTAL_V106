@@ -13,7 +13,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "MMDVMHost Virtual Nextion"
-WINDOW_SIZE = "480x250+13+372"  # Dimensiones fijas
+WINDOW_SIZE = "480x260+25+95"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
@@ -32,7 +32,7 @@ root.columnconfigure(1, weight=1, uniform="equal")
 # Fijar la fila de la estación sin que se vea afectada por las otras filas
 root.rowconfigure(0, weight=0)
 
-# Diccionario de configuración de etiquetas con colores modificados para "Frecuencia RX" y "Frecuencia TX"
+# Diccionario de configuración de etiquetas
 LABEL_CONFIGS = {
     "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
     "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
@@ -40,24 +40,25 @@ LABEL_CONFIGS = {
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
-    "Temp": {"fg": "#ff5722", "font": ("Arial", 12, "bold"), "row": 5, "column": 0},
-}
+    "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
+    "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
+   }
 
 # Contenedor de etiquetas
 labels = {}
 
 # Crear la etiqueta "Estación" en una fila separada (sin que se vea afectada por las demás columnas)
-estacion_label = tk.Label(root, text="Estación: N/A", bg=WINDOW_BG_COLOR, fg="#00adb5", font=("Arial", 24, "bold"))
-estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+estacion_label = tk.Label(root, text="", bg=WINDOW_BG_COLOR, fg="#00adb5", font=("Arial", 30, "bold"))
+estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
 
 # Crear la etiqueta "TX/RX" debajo de la estación, en una nueva fila
-txrx_label = tk.Label(root, text="TX/RX: N/A", bg=WINDOW_BG_COLOR, fg="white", font=("Arial", 20, "bold"))
-txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+txrx_label = tk.Label(root, text="", bg=WINDOW_BG_COLOR, fg="white", font=("Arial", 32, "bold"))
+txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
 
 # Agregar las otras etiquetas a la cuadrícula, comenzando desde la fila 2
 for label_name, config in LABEL_CONFIGS.items():
-    label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, anchor="w", fg=config["fg"], font=config["font"])
-    label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="w")
+    label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, fg=config["fg"], font=config["font"])
+    label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
     labels[label_name] = label
 
 # Abre el puerto serie una vez
@@ -74,19 +75,20 @@ def update_label(field, value):
 
 # Función para actualizar la etiqueta "Estación" directamente
 def update_estacion(value):
-    if estacion_label.cget("text") != f"Estación: {value}":
-        estacion_label.config(text=f"Estación: {value}")
+    if estacion_label.cget("text") != f"{value}":
+        estacion_label.config(text=f"{value}")
 
 # Función para actualizar la etiqueta "TX/RX" directamente
 def update_txrx(value):
-    if txrx_label.cget("text") != f"TX/RX: {value}":
-        txrx_label.config(text=f"TX/RX: {value}")
+    if txrx_label.cget("text") != f"{value}":
+        txrx_label.config(text=f"{value}")
 
 # Función para borrar la pantalla (solo "TX/RX", "Ber", "RSSI")
 def clear_screen():
-    txrx_label.config(text="TX/RX: N/A")
+    txrx_label.config(text="")
     labels["Ber"].config(text="Ber: N/A")
     labels["RSSI"].config(text="RSSI: N/A")
+    labels["TG"].config(text="TG: N/A")
 
 # Función para leer y actualizar datos del puerto serie
 def read_data():
@@ -108,12 +110,14 @@ def read_data():
         if "Fecha y Hora" in parsed_data:
             clear_screen()
         
+        # Si se detecta "Fecha y Hora", actualizar el label de TX/RX con la fecha y hora
+        if "Fecha y Hora" in parsed_data:
+            update_txrx(parsed_data["Fecha y Hora"])
+        
         for key, value in parsed_data.items():
             update_label(key, value)
         if "Estación" in parsed_data:
             update_estacion(parsed_data["Estación"])
-        if "TX/RX" in parsed_data:
-            update_txrx(parsed_data["TX/RX"])
     
     root.after(100, read_data)  # Llama a read_data de nuevo después de 100 ms
 
@@ -121,7 +125,7 @@ def read_data():
 def parse_data(data_str):
     result = {}
     match_patterns = {
-        "Fecha y Hora": r't2.txt="([^"]+)"',  # Añadido patrón para detectar Fecha y Hora en t2.txt
+        "Fecha y Hora": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t2.txt="([^"]+)"',
         "Frecuencia RX": r'1t30.txt="([^"]+)"',
@@ -131,6 +135,7 @@ def parse_data(data_str):
         "Ber": r't7.txt="([^"]+)"',
         "RSSI": r't5.txt="([^"]+)"',
         "Temp": r'1t20.txt="([^"]+)"',
+        "TG": r'1t3.txt="([^"]+)"',
     }
 
     for key, pattern in match_patterns.items():
@@ -145,6 +150,10 @@ def parse_data(data_str):
             # Solo añadir el valor de IP si contiene ':'
             if key == "IP" and ':' not in value:
                 continue  # Si no tiene dos puntos, no lo añadimos al resultado
+                
+            # Solo añadir el valor de TG si contiene ':'
+            if key == "TG" and 'TG' not in value:
+                continue  # Si no tiene TG, no lo añadimos al resultado
 
             result[key] = value  # Añadir el valor al resultado solo si cumple las condiciones
 
