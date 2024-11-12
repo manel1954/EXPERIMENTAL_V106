@@ -13,7 +13,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "MMDVMHost Virtual Nextion"
-WINDOW_SIZE = "480x260+13+369"  # Dimensiones fijas
+WINDOW_SIZE = "480x269+8+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
@@ -26,8 +26,8 @@ root.configure(bg=WINDOW_BG_COLOR)
 # Agregar un borde blanco de 3px alrededor de la ventana
 root.config(
     bd=3,  # Border width
-    highlightbackground="white",  # Color del borde
-    highlightthickness=3  # Grosor del borde
+    highlightbackground="#1E90FF",  # Color del borde
+    highlightthickness=4  # Grosor del borde
 )
 
 # Asegurar que la ventana no cambie de tamaño
