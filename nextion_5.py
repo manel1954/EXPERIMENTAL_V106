@@ -16,6 +16,10 @@ WINDOW_TITLE = "MMDVMHost Virtual Nextion Fusion"
 WINDOW_SIZE = "480x269+8+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
+
+
+
+
 # Crear ventana principal
 root = tk.Tk()
 root.title(WINDOW_TITLE)
@@ -23,20 +27,12 @@ root.geometry(WINDOW_SIZE)
 root.configure(bg=WINDOW_BG_COLOR)
 root.resizable(False, False)
 
-# Agregar un borde blanco de 3px alrededor de la ventana
+
+# Agregar un borde azul de 3px alrededor de la ventana
 root.config(
 highlightbackground="#1E90FF",  # Color del borde azul
 highlightthickness=5  # Grosor del borde
 )
-
-
-
-
-
-
-
-
-
 
 # Configuración de las columnas para que se distribuyan equitativamente
 root.columnconfigure(0, weight=1, uniform="equal")
@@ -47,25 +43,18 @@ root.rowconfigure(0, weight=0)
 
 # Diccionario de configuración de etiquetas
 LABEL_CONFIGS = {
-    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 11, "bold"), "row": 2, "column": 0},
-    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 11, "bold"), "row": 2, "column": 1},
-    "IP": {"fg": "white", "font": ("Arial", 11, "bold"), "row": 3, "column": 0},
-    "Estado": {"fg": "white", "font": ("Arial", 11, "bold"), "row": 3, "column": 1},
-    "Ber": {"fg": "yellow", "font": ("Arial", 11, "bold"), "row": 4, "column": 0},
-    "RSSI": {"fg": "yellow", "font": ("Arial", 11, "bold"), "row": 4, "column": 1},
+    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
+    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
+    "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
+    "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
+    "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
+    "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
 }
 
 # Contenedor de etiquetas
 labels = {}
-
-
-
-
-
-
-
 
 
 
@@ -143,10 +132,6 @@ for label_name, config in LABEL_CONFIGS.items():
     label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
     labels[label_name] = label
 
-
-
-
-
 # Abre el puerto serie una vez
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
@@ -204,26 +189,16 @@ def parse_data(data_str):
     match_patterns = {
         "Fecha y Hora": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
-        "TX/RX": r'50t0.txt="([^"]+)"',
-        "Frecuencia RX": r'1t30.txt="([^"]+)"',
-        "Frecuencia TX": r'1t32.txt="([^"]+)"',
-        "IP": r'1t3.txt="([^"]+)"',
-        "Estado": r'1t0.txt="([^"]+)"',
-        "Ber": r't7.txt="([^"]+)"',
-        "RSSI": r't5.txt="([^"]+)"',
-        "Temp": r'1t20.txt="([^"]+)"',
-        "TG": r'1t3.txt="([^"]+)"',
+        "TX/RX": r'50t[02]\.txt="([^"]+)"',
+        "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
+        "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
+        "IP": r'\b1t3.txt="([^"]+)"\b',
+        "Estado": r'\b1t0.txt="([^"]+)"\b',
+        "Ber": r't[47]\.txt="([^"]+)"',
+        "RSSI": r't[35]\.txt="([^"]+)"',
+        "Temp": r'\b1t20.txt="([^"]+)"\b',
+        "TG": r'\b1t3.txt="([^"]+)"\b',
     }
-
-
-
-
-
-
-
-
-
-
 
     for key, pattern in match_patterns.items():
         match = re.search(pattern, data_str)
@@ -235,8 +210,12 @@ def parse_data(data_str):
             if key == "IP" and ':' not in value:
                 continue
             if key == "TG" and 'TG' not in value:
-                continue
-
+                continue  
+            if key == "Fecha y Hora" and ':' not in value:
+                continue        
+            
+                      
+            
             result[key] = value
 
     return result
