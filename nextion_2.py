@@ -8,7 +8,7 @@ from colorama import Fore, Back, Style, init
 init()
 
 # Configuración de puerto serie
-SERIAL_PORT = "/dev/virtual2"  # Ajusta para que coincida con el puerto de socat
+SERIAL_PORT = "/dev/virtual20"  # Ajusta para que coincida con el puerto de socat
 BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
