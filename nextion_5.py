@@ -192,7 +192,7 @@ def parse_data(data_str):
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
         "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
-        "IP": r'\b1t3.txt="([^"]+)"\b',
+        "IP": r'\bt3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
