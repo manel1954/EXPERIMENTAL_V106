@@ -16,10 +16,6 @@ WINDOW_TITLE = "MMDVMHost Virtual Nextion Fusion"
 WINDOW_SIZE = "480x269+8+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
-
-
-
-
 # Crear ventana principal
 root = tk.Tk()
 root.title(WINDOW_TITLE)
@@ -27,11 +23,10 @@ root.geometry(WINDOW_SIZE)
 root.configure(bg=WINDOW_BG_COLOR)
 root.resizable(False, False)
 
-
 # Agregar un borde azul de 3px alrededor de la ventana
 root.config(
 highlightbackground="#1E90FF",  # Color del borde azul
-highlightthickness=5  # Grosor del borde
+highlightthickness=4  # Grosor del borde
 )
 
 # Configuración de las columnas para que se distribuyan equitativamente
@@ -58,15 +53,6 @@ labels = {}
 
 
 
-
-# Crear la etiqueta "Estación"
-estacion_label = tk.Label(root, text="", bg=WINDOW_BG_COLOR, fg="#00adb5", font=("Arial", 30, "bold"))
-estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
-# Crear la etiqueta "TX/RX"
-txrx_label = tk.Label(root, text="", bg=WINDOW_BG_COLOR, fg="white", font=("Arial", 32, "bold"))
-txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
 # Agregar las otras etiquetas a la cuadrícula
 for label_name, config in LABEL_CONFIGS.items():
     label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, fg=config["fg"], font=config["font"])
@@ -83,7 +69,7 @@ estacion_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="#00adb5", 
-    font=("Arial", 30, "bold"),
+    font=("Arial", 26, "bold"),
     highlightbackground="#1E90FF",  # Borde azul
     highlightthickness=2          # Grosor del borde
 )
@@ -192,12 +178,12 @@ def parse_data(data_str):
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
         "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
-        "IP": r'\bt3.txt="([^"]+)"\b',
+        "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
-        "TG": r'\b1t3.txt="([^"]+)"\b',
+        "TG": r'\b1t[13]\.txt="([^"]+)"\b',
     }
 
     for key, pattern in match_patterns.items():
@@ -209,8 +195,10 @@ def parse_data(data_str):
                 continue
             if key == "IP" and ':' not in value:
                 continue
-            if key == "TG" and 'TG' not in value:
-                continue  
+            #if key == "TG" and 'TG' not in value:
+             #   continue  
+            #if key == "TG" and 'DG' not in value:
+             #   continue  
             if key == "Fecha y Hora" and ':' not in value:
                 continue        
             
