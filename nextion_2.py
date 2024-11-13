@@ -13,7 +13,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "MMDVMHost Virtual Nextion Fusion"
-WINDOW_SIZE = "480x269+760+363"  # Dimensiones fijas
+WINDOW_SIZE = "480x269+780+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
