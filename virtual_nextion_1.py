@@ -8,12 +8,12 @@ from colorama import Fore, Back, Style, init
 init()
 
 # Configuración de puerto serie
-SERIAL_PORT = "/dev/virtual20"  # Ajusta para que coincida con el puerto de socat
+SERIAL_PORT = "/dev/virtual10"  # Ajusta para que coincida con el puerto de socat
 BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
-WINDOW_TITLE = "MMDVMHost Virtual Nextion Fusion"
-WINDOW_SIZE = "480x269+777+363"  # Dimensiones fijas
+WINDOW_TITLE = "MMDVMHost Virtual Nextion"
+WINDOW_SIZE = "480x269+8+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
