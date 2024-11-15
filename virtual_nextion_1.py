@@ -40,7 +40,7 @@ root.rowconfigure(0, weight=0)
 LABEL_CONFIGS = {
     "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
     "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 2},
-    "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
+    "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
     "LH": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 2},
@@ -92,7 +92,7 @@ txrx_label = tk.Label(
     highlightbackground="white",  # Borde blanco
     highlightthickness=2          # Grosor del borde
 )
-txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
+txrx_label.grid(row=1, column=2, columnspan=2, padx=10, pady=5, sticky="nsew")
 
 
 
