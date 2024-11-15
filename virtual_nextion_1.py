@@ -81,6 +81,30 @@ estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew
 
 
 
+
+# Crear la etiqueta "Estación" con un borde azul
+LH_label = tk.Label(
+    root, 
+    text="", 
+    bg=WINDOW_BG_COLOR, 
+    fg="#00adb5", 
+    font=("Arial", 10, "bold"),
+    highlightbackground="#1E90FF",  # Borde azul
+    highlightthickness=2          # Grosor del borde
+)
+estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew")
+
+
+
+
+
+
+
+
+
+
+
+
 # Crear la etiqueta "Fecha y Hora" (TX/RX)
 txrx_label = tk.Label(
     root, 
@@ -174,14 +198,14 @@ def parse_data(data_str):
     result = {}
     match_patterns = {
         "Fecha y Hora": r't2.txt="([^"]+)"',
-        #"Estación": r'20t0.txt="([^"]+)"',
+        "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
         "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-       "Estación": r'50t[02]\.txt="([^"]+)"',
+       "LH": r'50t[02]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
