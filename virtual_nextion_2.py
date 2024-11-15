@@ -195,8 +195,8 @@ def parse_data(data_str):
                 continue
             if key == "IP" and ':' not in value:
                 continue
-            #if key == "TG" and 'TG' not in value:
-             #   continue  
+            if key == "Ber" and '%' not in value:
+                continue
             #if key == "TG" and 'DG' not in value:
              #   continue  
             if key == "Fecha y Hora" and ':' not in value:
