@@ -25,8 +25,8 @@ root.resizable(False, False)
 
 # Agregar un borde azul de 3px alrededor de la ventana
 root.config(
-highlightbackground="#1E90FF",  # Color del borde azul
-highlightthickness=4  # Grosor del borde
+    highlightbackground="#1E90FF",  # Color del borde azul
+    highlightthickness=4  # Grosor del borde
 )
 
 # Configuración de las columnas para que se distribuyan equitativamente
@@ -43,81 +43,35 @@ LABEL_CONFIGS = {
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "Ber1": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
-    "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
-    "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
+    "Ber1": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
+    "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 5, "column": 0},
+    "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
+    "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 6, "column": 0},
 }
 
 # Contenedor de etiquetas
 labels = {}
 
-
-
-# Agregar las otras etiquetas a la cuadrícula
+# Agregar las etiquetas a la cuadrícula
 for label_name, config in LABEL_CONFIGS.items():
     label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, fg=config["fg"], font=config["font"])
     label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
     labels[label_name] = label
 
-
-
-
-
-# Crear la etiqueta "Estación" con un borde azul
-estacion_label = tk.Label(
-    root, 
-    text="", 
-    bg=WINDOW_BG_COLOR, 
-    fg="#00adb5", 
-    font=("Arial", 26, "bold"),
-    highlightbackground="#1E90FF",  # Borde azul
-    highlightthickness=2          # Grosor del borde
-)
-estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
-
-
-
-
-
-
-# Crear la etiqueta "Fecha y Hora" (TX/RX)
-txrx_label = tk.Label(
-    root, 
-    text="", 
-    bg=WINDOW_BG_COLOR, 
-    fg="white", 
-    font=("Arial", 32, "bold"), 
-    highlightbackground="white",  # Borde blanco
-    highlightthickness=2          # Grosor del borde
-)
-txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
-
-
-# Agregar las etiquetas con bordes naranga para Frecuencia RX y Frecuencia TX
-for label_name, config in LABEL_CONFIGS.items():
-    if label_name in ["Frecuencia RX", "Frecuencia TX"]:
-        label = tk.Label(
-            root, 
-            text=f"{label_name}: N/A", 
-            bg=WINDOW_BG_COLOR, 
-            fg=config["fg"], 
-            font=config["font"], 
-            highlightbackground="orange",  # Borde naranja
-            highlightthickness=1          # Grosor del borde
-        )
+# Función para rotar el texto de la etiqueta Ber1
+def rotate_text(label, index=0):
+    current_text = label.cget("text")
+    if current_text.startswith("Ber1: "):
+        value = current_text[6:]
     else:
-        label = tk.Label(
-            root, 
-            text=f"{label_name}: N/A", 
-            bg=WINDOW_BG_COLOR, 
-            fg=config["fg"], 
-            font=config["font"]
-        )
-    label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
-    labels[label_name] = label
+        value = current_text
+
+    if not value:
+        return
+
+    rotated_value = value[index:] + value[:index]
+    label.config(text=f"Ber1: {rotated_value}")
+    root.after(200, lambda: rotate_text(label, (index + 1) % len(value)))
 
 # Abre el puerto serie una vez
 try:
@@ -126,24 +80,14 @@ except serial.SerialException as e:
     print(Fore.RED + Back.BLACK + f"Error al conectar con el puerto: {e}" + Style.RESET_ALL)
     ser = None
 
+# Actualizar etiquetas
 def update_label(field, value):
     if field in labels and labels[field].cget("text") != f"{field}: {value}":
         labels[field].config(text=f"{field}: {value}")
+        if field == "Ber1":  # Activar rotación para Ber1
+            rotate_text(labels["Ber1"])
 
-def update_estacion(value):
-    if estacion_label.cget("text") != f"{value}":
-        estacion_label.config(text=f"{value}")
-
-def update_txrx(value):
-    if txrx_label.cget("text") != f"{value}":
-        txrx_label.config(text=f"{value}")
-
-def clear_screen():
-    txrx_label.config(text="")
-    labels["Ber"].config(text="Ber: N/A")
-    labels["RSSI"].config(text="RSSI: N/A")
-    labels["TG"].config(text="TG: N/A")
-
+# Función para leer y procesar datos del puerto serie
 def read_data():
     if ser and ser.in_waiting > 0:
         try:
@@ -156,33 +100,22 @@ def read_data():
         
         parsed_data = parse_data(data_str)
         print_formatted_data(parsed_data)
-        
-        if "Fecha y Hora" in parsed_data:
-            clear_screen()
-            update_txrx(parsed_data["Fecha y Hora"])
 
         for key, value in parsed_data.items():
-            if key == "Estación":
-                update_estacion(value)
-            elif key == "TX/RX":
-                update_txrx(value)
-            else:
-                update_label(key, value)
+            update_label(key, value)
     
     root.after(100, read_data)
 
+# Función para analizar los datos del puerto serie
 def parse_data(data_str):
     result = {}
     match_patterns = {
-        "Fecha y Hora": r't2.txt="([^"]+)"',
-        "Estación": r'20t0.txt="([^"]+)"',
-        "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
         "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-       "Ber1": r'50t[02]\.txt="([^"]+)"',
+        "Ber1": r'50t[02]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
@@ -191,25 +124,11 @@ def parse_data(data_str):
     for key, pattern in match_patterns.items():
         match = re.search(pattern, data_str)
         if match:
-            value = match.group(1)
-
-            if key == "RSSI" and '-' not in value:
-                continue
-            if key == "IP" and ':' not in value:
-                continue
-            if key == "Ber" and '%' not in value:
-                continue 
-            #if key == "TG" and 'DG' not in value:
-             #   continue  
-            if key == "Fecha y Hora" and ':' not in value:
-                continue        
-            
-                      
-            
-            result[key] = value
+            result[key] = match.group(1)
 
     return result
 
+# Función para imprimir los datos recibidos
 def print_formatted_data(parsed_data):
     print(Fore.WHITE + Back.BLACK + "Datos recibidos:" + Style.RESET_ALL)
     print(f"{'Campo':<15} {'Valor'}")
