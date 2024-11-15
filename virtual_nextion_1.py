@@ -38,12 +38,11 @@ root.rowconfigure(0, weight=0)
 
 # Diccionario de configuración de etiquetas
 LABEL_CONFIGS = {
-    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
-    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 2},
+    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
+    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "LH": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 2},
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
@@ -70,7 +69,7 @@ estacion_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="#00adb5", 
-    font=("Arial", 26, "bold"),
+    font=("Arial", 10, "bold"),
     highlightbackground="#1E90FF",  # Borde azul
     highlightthickness=2          # Grosor del borde
 )
@@ -92,7 +91,7 @@ txrx_label = tk.Label(
     highlightbackground="white",  # Borde blanco
     highlightthickness=2          # Grosor del borde
 )
-txrx_label.grid(row=1, column=2, columnspan=2, padx=10, pady=5, sticky="nsew")
+txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
 
 
 
@@ -175,14 +174,14 @@ def parse_data(data_str):
     result = {}
     match_patterns = {
         "Fecha y Hora": r't2.txt="([^"]+)"',
-        "Estación": r'20t0.txt="([^"]+)"',
+        #"Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
         "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-       "LH": r'50t[02]\.txt="([^"]+)"',
+       "Estación": r'50t[02]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
