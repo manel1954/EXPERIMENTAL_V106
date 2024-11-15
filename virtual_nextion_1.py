@@ -70,7 +70,7 @@ estacion_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="#00adb5", 
-    font=("Arial", 10, "bold"),
+    font=("Arial", 20, "bold"),
     highlightbackground="#1E90FF",  # Borde azul
     highlightthickness=2          # Grosor del borde
 )
