@@ -43,6 +43,7 @@ LABEL_CONFIGS = {
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
+    "LH": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 0, "column": 0},
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
@@ -73,26 +74,16 @@ estacion_label = tk.Label(
     highlightbackground="#1E90FF",  # Borde azul
     highlightthickness=2          # Grosor del borde
 )
-estacion_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
-
-
-
-
-
-
-
-# Crear la etiqueta "Estación" con un borde azul
-LH_label = tk.Label(
-    root, 
-    text="", 
-    bg=WINDOW_BG_COLOR, 
-    fg="#00adb5", 
-    font=("Arial", 10, "bold"),
-    highlightbackground="#1E90FF",  # Borde azul
-    highlightthickness=2          # Grosor del borde
-)
 estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew")
+
+
+
+
+
+
+
+
+
 
 
 
