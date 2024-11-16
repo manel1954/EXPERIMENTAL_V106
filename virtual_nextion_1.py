@@ -70,7 +70,7 @@ ultimo_label = tk.Label(
     bg=WINDOW_BG_COLOR, 
     fg="orange", 
     font=("Arial", 12, "bold"),
-    highlightbackground="orange",  # Color del borde (naranja en este caso)
+    highlightbackground="#FFA500",  # Color del borde (naranja en este caso)
     highlightthickness=2  # Grosor del borde
 )
 ultimo_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
