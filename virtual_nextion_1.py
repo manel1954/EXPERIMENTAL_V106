@@ -38,12 +38,12 @@ root.rowconfigure(0, weight=0)
 
 # Diccionario de configuración de etiquetas
 LABEL_CONFIGS = {
-    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 12, "bold"), "row": 2, "column": 0},
-    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 12, "bold"), "row": 2, "column": 1},
+    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 11, "bold"), "row": 2, "column": 0},
+    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 11, "bold"), "row": 2, "column": 1},
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "LH": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 0, "column": 0},
+    "Último": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 0, "column": 0},
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
