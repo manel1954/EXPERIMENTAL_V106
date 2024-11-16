@@ -58,6 +58,30 @@ for label_name, config in LABEL_CONFIGS.items():
     label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
     labels[label_name] = label
 
+
+
+
+
+
+# Crear la etiqueta "Último" con borde de 3px
+ultimo_label = tk.Label(
+    root, 
+    text="Último: N/A", 
+    bg=WINDOW_BG_COLOR, 
+    fg="orange", 
+    font=("Arial", 12, "bold"),
+    highlightbackground="orange",  # Color del borde (naranja en este caso)
+    highlightthickness=2  # Grosor del borde
+)
+ultimo_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
+
+
+
+
+
+
+
+
 # Crear la etiqueta "Estación" con un borde azul
 estacion_label = tk.Label(
     root, 
