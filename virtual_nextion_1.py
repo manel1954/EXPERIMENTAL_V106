@@ -65,8 +65,8 @@ estacion_label = tk.Label(
     bg=WINDOW_BG_COLOR, 
     fg="#00adb5", 
     font=("Arial", 16, "bold"),  # modificado 16-11-2024 **********
-    #highlightbackground="#1E90FF",  # Borde azul # modificado 16-11-2024 **********
-    #highlightthickness=2          # Grosor del borde # modificado 16-11-2024 **********
+    highlightbackground="#1E90FF",  # Borde azul 
+    highlightthickness=2          # Grosor del borde 
 )
 estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew")
 
