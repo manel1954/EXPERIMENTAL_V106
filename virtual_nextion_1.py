@@ -76,7 +76,7 @@ txrx_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="white", 
-    font=("Arial", 34, "bold"), 
+    font=("Arial", 36, "bold"), 
     highlightbackground="white",  # Borde blanco
     highlightthickness=2          # Grosor del borde
 )
