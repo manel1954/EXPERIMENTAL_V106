@@ -78,17 +78,7 @@ estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew
 
 
 
-# Crear la etiqueta "Estación" con un borde azul
-lh_label = tk.Label(
-    root, 
-    text="", 
-    bg=WINDOW_BG_COLOR, 
-    fg="#00adb5", 
-    font=("Arial", 16, "bold"),
-    #highlightbackground="#1E90FF",  # Borde azul
-    #highlightthickness=2          # Grosor del borde
-)
-lh_label.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
+
 
 
 
@@ -157,14 +147,6 @@ def update_label(field, value):
 def update_estacion(value):
     if estacion_label.cget("text") != f"{value}":
         estacion_label.config(text=f"{value}")
-
-
-
-def update_lh(value):
-    if lh_label.cget("text") != f"{value}":
-        lh_label.config(text=f"{value}")
-
-
 
 
 def update_txrx(value):
