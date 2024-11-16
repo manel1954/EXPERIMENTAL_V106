@@ -43,7 +43,7 @@ LABEL_CONFIGS = {
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "Último": {"fg": "orange", "font": ("Arial", 12, "bold"), "row": 0, "column": 0},
+    "Último": {"fg": "orange", "font": ("Arial", 12, "bold"), "row": 0, "column": 0}, # modificado 16-11-2024 **********
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
@@ -52,17 +52,11 @@ LABEL_CONFIGS = {
 # Contenedor de etiquetas
 labels = {}
 
-
-
 # Agregar las otras etiquetas a la cuadrícula
 for label_name, config in LABEL_CONFIGS.items():
     label = tk.Label(root, text=f"{label_name}: N/A", bg=WINDOW_BG_COLOR, fg=config["fg"], font=config["font"])
     label.grid(row=config["row"], column=config["column"], padx=10, pady=5, sticky="nsew")
     labels[label_name] = label
-
-
-
-
 
 # Crear la etiqueta "Estación" con un borde azul
 estacion_label = tk.Label(
@@ -76,26 +70,6 @@ estacion_label = tk.Label(
 )
 estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Crear la etiqueta "Fecha y Hora" (TX/RX)
 txrx_label = tk.Label(
     root, 
@@ -107,8 +81,6 @@ txrx_label = tk.Label(
     highlightthickness=2          # Grosor del borde
 )
 txrx_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
-
-
 
 # Agregar las etiquetas con bordes naranga para Frecuencia RX y Frecuencia TX
 for label_name, config in LABEL_CONFIGS.items():
@@ -197,7 +169,7 @@ def parse_data(data_str):
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-       "Último": r'50t[02]\.txt="([^"]+)"',
+        "Último": r'50t[02]\.txt="([^"]+)"', # modificado 16-11-2024 **********
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
@@ -212,15 +184,12 @@ def parse_data(data_str):
                 continue
             if key == "IP" and ':' not in value:
                 continue
-            if key == "Ber" and '%' not in value:
+            if key == "Ber" and '%' not in value: # modificado 16-11-2024 **********
                 continue 
             #if key == "TG" and 'DG' not in value:
              #   continue  
             if key == "Fecha y Hora" and ':' not in value:
-                continue        
-            
-                      
-            
+                continue                                                    
             result[key] = value
 
     return result
