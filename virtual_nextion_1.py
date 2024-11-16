@@ -66,7 +66,7 @@ for label_name, config in LABEL_CONFIGS.items():
 # Crear la etiqueta "Último" con borde de 3px
 ultimo_label = tk.Label(
     root, 
-    text="Último: N/A", 
+    text="ultimo: N/A", 
     bg=WINDOW_BG_COLOR, 
     fg="orange", 
     font=("Arial", 12, "bold"),
