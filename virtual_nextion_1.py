@@ -143,7 +143,9 @@ def update_label(field, value):
 def update_estacion(value):
     if estacion_label.cget("text") != f"{value}":
         estacion_label.config(text=f"{value}")
-
+def update_ultimo(value):
+    if ultimo_label.cget("text") != f"{value}":
+        ultimo_label.config(text=f"{value}")
 
 def update_txrx(value):
     if txrx_label.cget("text") != f"{value}":
