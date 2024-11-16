@@ -13,7 +13,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "MMDVMHost Virtual Nextion"
-WINDOW_SIZE = "480x269+8+363"  # Dimensiones fijas
+WINDOW_SIZE = "480x260+8+363"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
@@ -38,8 +38,8 @@ root.rowconfigure(0, weight=0)
 
 # Diccionario de configuración de etiquetas
 LABEL_CONFIGS = {
-    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 11, "bold"), "row": 2, "column": 0},
-    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 11, "bold"), "row": 2, "column": 1},
+    "Frecuencia RX": {"fg": "#77DD77", "font": ("Arial", 11, "bold"), "row": 2, "column": 0}, # modificado 16-11-2024 **********
+    "Frecuencia TX": {"fg": "pink", "font": ("Arial", 11, "bold"), "row": 2, "column": 1}, # modificado 16-11-2024 **********
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
@@ -64,9 +64,9 @@ estacion_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="#00adb5", 
-    font=("Arial", 16, "bold"),
-    #highlightbackground="#1E90FF",  # Borde azul
-    #highlightthickness=2          # Grosor del borde
+    font=("Arial", 16, "bold"),  # modificado 16-11-2024 **********
+    #highlightbackground="#1E90FF",  # Borde azul # modificado 16-11-2024 **********
+    #highlightthickness=2          # Grosor del borde # modificado 16-11-2024 **********
 )
 estacion_label.grid(row=0, column=1, columnspan=2, padx=10, pady=5, sticky="nsew")
 
@@ -76,7 +76,7 @@ txrx_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="white", 
-    font=("Arial", 36, "bold"), 
+    font=("Arial", 32, "bold"), 
     highlightbackground="white",  # Borde blanco
     highlightthickness=2          # Grosor del borde
 )
