@@ -43,7 +43,7 @@ LABEL_CONFIGS = {
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    #"ultimo": {"fg": "orange", "font": ("Arial", 12, "bold"), "row": 0, "column": 0}, # modificado 16-11-2024 **********
+    "Último": {"fg": "orange", "font": ("Arial", 12, "bold"), "row": 0, "column": 0}, # modificado 16-11-2024 **********
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
@@ -66,7 +66,7 @@ for label_name, config in LABEL_CONFIGS.items():
 # Crear la etiqueta "Último" con borde de 3px
 ultimo_label = tk.Label(
     root, 
-    text="ultimo: N/A", 
+    text="Último: N/A", 
     bg=WINDOW_BG_COLOR, 
     fg="orange", 
     font=("Arial", 12, "bold"),
@@ -143,9 +143,7 @@ def update_label(field, value):
 def update_estacion(value):
     if estacion_label.cget("text") != f"{value}":
         estacion_label.config(text=f"{value}")
-def update_ultimo(value):
-    if ultimo_label.cget("text") != f"{value}":
-        ultimo_label.config(text=f"{value}")
+
 
 def update_txrx(value):
     if txrx_label.cget("text") != f"{value}":
@@ -195,7 +193,7 @@ def parse_data(data_str):
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-        "ultimo": r'50t[02]\.txt="([^"]+)"', # modificado 16-11-2024 **********
+        "Último": r'50t[02]\.txt="([^"]+)"', # modificado 16-11-2024 **********
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
