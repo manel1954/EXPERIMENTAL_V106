@@ -61,7 +61,7 @@ for label_name, config in LABEL_CONFIGS.items():
             bg=WINDOW_BG_COLOR, 
             fg=config["fg"], 
             font=config["font"], 
-            highlightbackground="orange",  # Borde naranja
+            highlightbackground="white",  # Borde naranja
             highlightthickness=1          # Grosor del borde
         )
     elif label_name == "LH":
