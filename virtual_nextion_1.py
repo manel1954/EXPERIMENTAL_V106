@@ -71,7 +71,7 @@ for label_name, config in LABEL_CONFIGS.items():
             bg=WINDOW_BG_COLOR,
             fg=config["fg"],
             font=config["font"],
-            highlightbackground="white",  # Borde blanco
+            highlightbackground="orange",  # Borde blanco
             highlightthickness=2          # Grosor del borde
         )
     else:
