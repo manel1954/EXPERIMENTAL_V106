@@ -43,7 +43,7 @@ LABEL_CONFIGS = {
     "IP": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 0},
     "Estado": {"fg": "white", "font": ("Arial", 12, "bold"), "row": 3, "column": 1},
     "Ber": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 0},
-    "Último": {"fg": "orange", "font": ("Arial", 11, "bold"), "row": 0, "column": 0}, # modificado 16-11-2024 **********
+    "Lh": {"fg": "orange", "font": ("Arial", 11, "bold"), "row": 0, "column": 0}, # modificado 16-11-2024 **********
     "RSSI": {"fg": "yellow", "font": ("Arial", 12, "bold"), "row": 4, "column": 1},
     "Temp": {"fg": "#ff5722", "font": ("Arial", 10, "bold"), "row": 5, "column": 0},
     "TG": {"fg": "#00adb5", "font": ("Arial", 10, "bold"), "row": 5, "column": 1},
@@ -193,7 +193,7 @@ def parse_data(data_str):
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
-        "Último": r'50t[02]\.txt="([^"]+)"', # modificado 16-11-2024 **********
+        "Lh": r'50t[02]\.txt="([^"]+)"', # modificado 16-11-2024 **********
         "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
