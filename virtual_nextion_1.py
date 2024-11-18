@@ -64,7 +64,7 @@ for label_name, config in LABEL_CONFIGS.items():
             highlightbackground="orange",  # Borde naranja
             highlightthickness=1          # Grosor del borde
         )
-    elif label_name == "Lh":
+    elif label_name == "LH":
         label = tk.Label(
             root,
             text=f"{label_name}: N/A",
