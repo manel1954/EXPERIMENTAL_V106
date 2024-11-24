@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# hoy 24-11-2024
 sed -i "19c DMRGateway=ON" /home/pi/status.ini
 
 frecuencia=$(awk "NR==13" /home/pi/MMDVMHost/MMDVMDMRGateway.ini)
