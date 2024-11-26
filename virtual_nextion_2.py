@@ -13,7 +13,7 @@ BAUD_RATE = 9600
 
 # Configuración de la ventana de Tkinter
 WINDOW_TITLE = "MMDVMHost Virtual Nextion"
-WINDOW_SIZE = "480x268+777+367"  # Dimensiones fijas
+WINDOW_SIZE = "494x268+763+367"  # Dimensiones fijas
 WINDOW_BG_COLOR = "#152637"
 
 # Crear ventana principal
@@ -103,7 +103,7 @@ txrx_label = tk.Label(
     text="", 
     bg=WINDOW_BG_COLOR, 
     fg="white", 
-    font=("Arial", 31, "bold"), 
+    font=("Arial", 33, "bold"), 
     highlightbackground="white",  # Borde blanco
     highlightthickness=2          # Grosor del borde
 )
