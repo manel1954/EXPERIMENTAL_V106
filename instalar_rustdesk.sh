@@ -6,6 +6,6 @@
                         
                         sudo dpkg -i rustdesk-1.3.2-armv7-sciter.deb
 
-                        sudo apt -f install
+                        sudo apt -f install -y
 
                         sudo rm rustdesk-1.3.2-armv7-sciter.deb*
