@@ -3,7 +3,7 @@
 fecha=$(date +%Y%m%d) # extrae fecha del día en formato 20241129
 # Convertir a formato dd-mm-yyyy 29-11-2024
 fecha_formateada=$(echo "$fecha" | awk '{print substr($0, 7, 2) "-" substr($0, 5, 2) "-" substr($0, 1, 4)}')
-sed -i "2c $fecha_formateadaassword" /home/pi/version-fecha-actualizacion
+sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
 
                         cd /home/pi/EXPERIMENTAL_V106
                         #git clone http://github.com/manel1954/EXPERIMENTAL_V106                        
