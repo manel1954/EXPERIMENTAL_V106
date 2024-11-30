@@ -5,23 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos del Puerto Serie</title>
     <style>
-        body{
-           background:#000; 
-        }
-        .fecha-hora, .tx-rx {
+        .dato {
+            color: red;
+            border: 2px solid green;
             padding: 10px;
+            margin: 5px 0;
             display: inline-block;
             font-family: Arial, sans-serif;
-            font-size:35px;
-        }
-        .fecha-hora {
-            color: #ffffff;
-            border: 2px solid green;
-        }
-        .tx-rx {
-            color: blue;
-            border: 2px solid orange;
-            font-size:13px;
         }
     </style>
     <script>
@@ -30,20 +20,24 @@
                 const response = await fetch('/data');
                 const data = await response.json();
 
-                // Actualiza Fecha y Hora
-                const fechaHoraElem = document.getElementById('fecha-hora');
-                fechaHoraElem.textContent = data["Fecha y Hora"] || "N/A";
+                // Actualizar todos los campos
+                const campos = [
+                    "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
+                    "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
+                ];
 
-                // Actualiza TX/RX
-                const txRxElem = document.getElementById('tx-rx');
-                txRxElem.textContent = data["TX/RX"] || "N/A";
-
+                campos.forEach(campo => {
+                    const elemento = document.getElementById(campo.replace(/ /g, '-').toLowerCase());
+                    if (elemento) {
+                        elemento.textContent = `${campo}: ${data[campo] || "N/A"}`;
+                    }
+                });
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
 
-        // Actualiza los datos cada 2 segundos
+        // Actualizar los datos cada 2 segundos
         setInterval(fetchData, 2000);
 
         // Cargar datos al inicio
@@ -51,8 +45,19 @@
     </script>
 </head>
 <body>
-    <h1 style="color:#ffffff">VIRTUAL NEXTION</h1>
-    <div class="fecha-hora" id="fecha-hora">Cargando Fecha y Hora...</div>
-    <div class="tx-rx" id="tx-rx">Cargando TX/RX...</div>
+    <h1>Monitor de Puerto Serie</h1>
+    <!-- Divs para mostrar los datos -->
+    <div class="dato" id="fecha-y-hora">Fecha y Hora: Cargando...</div>
+    <div class="dato" id="tx-rx">TX/RX: Cargando...</div>
+    <div class="dato" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
+    <div class="dato" id="frecuencia-tx">Frecuencia TX: Cargando...</div>
+    <div class="dato" id="ip">IP: Cargando...</div>
+    <div class="dato" id="estado">Estado: Cargando...</div>
+    <div class="dato" id="ber">Ber: Cargando...</div>
+    <div class="dato" id="lh">LH: Cargando...</div>
+    <div class="dato" id="rssi">RSSI: Cargando...</div>
+    <div class="dato" id="temp">Temp: Cargando...</div>
+    <div class="dato" id="tg">TG: Cargando...</div>
 </body>
 </html>
+
