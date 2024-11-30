@@ -4,44 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos del Puerto Serie</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+
+
     <style>
         /* Estilo general para todos los campos */
-        .dato {
+        body{
+            background:#000000;
+        }
+        /* .dato {
             padding: 10px;
             margin: 5px 0;
             display: inline-block;
             font-family: Arial, sans-serif;
             border: 2px solid;
-            display: none; /* Ocultos por defecto */
-        }
+        } */
 
         /* Estilos específicos para cada campo */
         .fecha-hora {
-            color: red;
-            background-color: #ffe6e6;
-            border-color: green;
-            font-size: 1.2em;
+            color: white;
+            border:2px solid orange;
+            font-size: 35px;
+
         }
 
         .tx-rx {
-            color: blue;
-            background-color: #e6f0ff;
-            border-color: orange;
-            font-size: 1.2em;
+            color: white;
+            border:2px solid white;
+            font-size: 35px;
+
         }
 
         .frecuencia-rx {
-            color: darkgreen;
-            background-color: #e6ffe6;
-            border-color: lightgreen;
-            font-size: 1em;
+            color: orange;
+            border:2px solid orange;
+            font-size: 18px;
+
         }
 
         .frecuencia-tx {
-            color: darkblue;
-            background-color: #e6e6ff;
-            border-color: lightblue;
-            font-size: 1em;
+            color: orange;
+            border:2px solid orange;
+            font-size: 18px;
+
         }
 
         .ip {
@@ -99,7 +112,7 @@
                 const response = await fetch('/data');
                 const data = await response.json();
 
-                // Lista de los campos que se deben actualizar
+                // Actualizar todos los campos
                 const campos = [
                     "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
                     "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
@@ -110,13 +123,7 @@
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
-                        // Mostrar o esconder el elemento basado en la disponibilidad de datos
-                        if (data[campo]) {
-                            elemento.style.display = "inline-block";
-                            elemento.textContent = `${campo}: ${data[campo]}`;
-                        } else {
-                            elemento.style.display = "none"; // Ocultar si no hay datos
-                        }
+                        elemento.textContent = `${campo}: ${data[campo] || "N/A"}`;
                     }
                 });
             } catch (error) {
@@ -132,18 +139,46 @@
     </script>
 </head>
 <body>
-    <h1>Monitor de Puerto Serie</h1>
+    
+     
+<div class="container">    
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+    <h1 style="color:white">Virtual Nextion</h1>
+    </div>
     <!-- Divs para mostrar los datos -->
-    <div class="dato fecha-hora" id="fecha-y-hora"></div>
-    <div class="dato tx-rx" id="tx-rx"></div>
-    <div class="dato frecuencia-rx" id="frecuencia-rx"></div>
-    <div class="dato frecuencia-tx" id="frecuencia-tx"></div>
-    <div class="dato ip" id="ip"></div>
-    <div class="dato estado" id="estado"></div>
-    <div class="dato ber" id="ber"></div>
-    <div class="dato lh" id="lh"></div>
-    <div class="dato rssi" id="rssi"></div>
-    <div class="dato temp" id="temp"></div>
-    <div class="dato tg" id="tg"></div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 text-center">
+    <div class="dato fecha-hora" id="fecha-y-hora"> Cargando...</div><br>
+</div><!-- row -->    
+    
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 text-center">    
+    <div class="dato tx-rx" id="tx-rx">TX/RX: Cargando...</div><br>
+</div><!-- row --> 
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
+    <div class="col-lg-3 text-center frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div><br>
+</div><!-- row -->  
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="dato ip" id="ip">IP: Cargando...</div>
+    <div class="dato estado" id="estado">Estado: Cargando...</div><br>
+    <div class="dato ber" id="ber">Ber: Cargando...</div>
+    <div class="dato lh" id="lh">LH: Cargando...</div><br>
+    <div class="dato rssi" id="rssi">RSSI: Cargando...</div>
+    <div class="dato temp" id="temp">Temp: Cargando...</div><br>
+    <div class="dato tg" id="tg">TG: Cargando...</div>
+</div><!-- row  -->
+
+</div><!-- container    -->
 </body>
 </html>
