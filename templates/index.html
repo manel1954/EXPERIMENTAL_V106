@@ -105,7 +105,9 @@
                 ];
 
                 campos.forEach(campo => {
-                    const elemento = document.getElementById(campo.replace(/ /g, '-').toLowerCase());
+                    // Sanitizar el ID del campo para que sea válido en el HTML
+                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                    const elemento = document.getElementById(campoId);
                     if (elemento) {
                         elemento.textContent = `${campo}: ${data[campo] || "N/A"}`;
                     }
@@ -130,4 +132,11 @@
     <div class="dato frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
     <div class="dato frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div>
     <div class="dato ip" id="ip">IP: Cargando...</div>
-    <div class="dato estado" id="estado">Estado: Cargando...</div
+    <div class="dato estado" id="estado">Estado: Cargando...</div>
+    <div class="dato ber" id="ber">Ber: Cargando...</div>
+    <div class="dato lh" id="lh">LH: Cargando...</div>
+    <div class="dato rssi" id="rssi">RSSI: Cargando...</div>
+    <div class="dato temp" id="temp">Temp: Cargando...</div>
+    <div class="dato tg" id="tg">TG: Cargando...</div>
+</body>
+</html>
