@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos del Puerto Serie</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+
+
+    <style>
+        /* Estilo general para todos los campos */
+        body{
+            background:#000000;
+        }
+        /* .dato {
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            border: 2px solid;
+        } */
+
+        /* Estilos específicos para cada campo */
+        .fecha-hora {
+            color: white;
+            border:2px solid white;
+            font-size: 35px;
+
+        }
+
+        .tx-rx {
+            color: white;
+            border:2px solid white;
+            font-size: 35px;
+
+        }
+
+        .frecuencia-rx {
+            color: darkorange;
+            background-color: #fff4e6;
+            border-color: orange;
+            font-size: 1em;
+
+        }
+
+        .frecuencia-tx {
+            color: darkorange;
+            background-color: #fff4e6;
+            border-color: orange;
+            font-size: 1em;
+        }
+
+        .ip {
+            color: purple;
+            background-color: #fbe6ff;
+            border-color: pink;
+            font-size: 1em;
+        }
+
+        .estado {
+            color: black;
+            background-color: #f2f2f2;
+            border-color: gray;
+            font-size: 1em;
+        }
+
+        .ber {
+            color: darkred;
+            background-color: #ffe6e6;
+            border-color: red;
+            font-size: 1em;
+        }
+
+        .lh {
+            color: darkorange;
+            background-color: #fff4e6;
+            border-color: orange;
+            font-size: 1em;
+        }
+
+        .rssi {
+            color: teal;
+            background-color: #e6ffff;
+            border-color: lightblue;
+            font-size: 1em;
+        }
+
+        .temp {
+            color: darkgoldenrod;
+            background-color: #fffbe6;
+            border-color: gold;
+            font-size: 1em;
+        }
+
+        .tg {
+            color: navy;
+            background-color: #e6e6ff;
+            border-color: darkblue;
+            font-size: 1em;
+        }
+    </style>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/data');
+                const data = await response.json();
+
+                // Actualizar todos los campos
+                const campos = [
+                    "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
+                    "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
+                ];
+
+                campos.forEach(campo => {
+                    // Sanitizar el ID del campo para que sea válido en el HTML
+                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                    const elemento = document.getElementById(campoId);
+                    if (elemento) {
+                        elemento.textContent = `${campo}: ${data[campo] || "N/A"}`;
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Actualizar los datos cada 2 segundos
+        setInterval(fetchData, 2000);
+
+        // Cargar datos al inicio
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</head>
+<body>
+    
+     
+<div class="container">    
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+    <h1 style="color:white">Virtual Nextion</h1>
+    </div>
+    <!-- Divs para mostrar los datos -->
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 text-center">
+    <div class="dato fecha-hora" id="fecha-y-hora"> Cargando...</div><br>
+</div><!-- row -->    
+    
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 text-center">    
+    <div class="dato tx-rx" id="tx-rx">TX/RX: Cargando...</div><br>
+</div><!-- row --> 
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
+    <div class="col-lg-3 text-center frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div>
+</div><!-- row -->  
+
+
+<br>
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center ip" id="ip">IP: Cargando...</div>
+    <div class="col-lg-3 text-center estado" id="estado">Estado: Cargando...</div>
+</div><!-- row --> 
+
+<br>
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center ber" id="ber">Ber: Cargando...</div>
+    <div class="col-lg-3 text-center estado lh" id="lh">LH: Cargando...</div>
+</div><!-- row -->
+
+<br>
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center rssi" id="rssi">RSSI: Cargando...</div>
+    <div class="col-lg-3 text-center estado temp" id="temp">Temp: Cargando...</div>
+</div><!-- row -->
+
+<br>
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 text-center tg" id="tg">TG: Cargando...</div>
+</div><!-- row  -->
+
+</div><!-- container    -->
+</body>
+</html>
