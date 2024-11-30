@@ -30,10 +30,10 @@
 
         /* Estilos específicos para cada campo */
         .fecha-hora {
-            color: blue;
-            border-color: white;
+            color: white;
+            border-color: blue;
             font-size: 35px;
-            /* display: inline-block; */
+            width: 100%;
         }
 
         .tx-rx {
@@ -155,7 +155,9 @@
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 text-center">    
     <div class="dato tx-rx" id="tx-rx">TX/RX: Cargando...</div><br>
-</div><!-- row -->    
+</div><!-- row --> 
+
+<div class="row"></div>
     <div class="dato frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
     <div class="dato frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div><br>
     <div class="dato ip" id="ip">IP: Cargando...</div>
@@ -165,7 +167,7 @@
     <div class="dato rssi" id="rssi">RSSI: Cargando...</div>
     <div class="dato temp" id="temp">Temp: Cargando...</div><br>
     <div class="dato tg" id="tg">TG: Cargando...</div>
-
+</div><!-- row --> 
 
 </div><!-- container    -->
 </body>
