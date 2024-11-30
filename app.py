@@ -35,7 +35,7 @@ last_data = {
 def parse_data(data_str):
     result = {}
     match_patterns = {
-        "Fecha y Hora": r't2.txt="([^"]+)"',
+        "f": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
