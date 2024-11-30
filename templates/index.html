@@ -119,17 +119,22 @@
                 ];
 
                 campos.forEach(campo => {
-                    // Sanitizar el ID del campo para que sea válido en el HTML
-                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                    const elemento = document.getElementById(campoId);
-                    if (elemento) {
-                        elemento.textContent = `${campo}: ${data[campo] || "N/A"}`;
-                    }
-                });
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            // Sanitizar el ID del campo para que sea válido en el HTML
+            const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const elemento = document.getElementById(campoId);
+            if (elemento) {
+                // Verificar si el campo tiene datos; si no, limpiar
+                if (data[campo]) {
+                    elemento.textContent = `${campo}: ${data[campo]}`;
+                } else {
+                    elemento.textContent = ""; // Borrar contenido si no hay datos
+                }
             }
-        }
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
 
         // Actualizar los datos cada 2 segundos
         setInterval(fetchData, 2000);
