@@ -17,7 +17,7 @@ except serial.SerialException as e:
 
 # Almacén para los últimos datos recibidos
 last_data = {
-    "Fecha y Hora": "N/A",
+    "": "N/A",
     "Estación": "N/A",
     "TX/RX": "N/A",
     "Frecuencia RX": "N/A",
