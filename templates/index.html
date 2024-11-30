@@ -5,13 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos del Puerto Serie</title>
     <style>
+        /* Estilo general para todos los campos */
         .dato {
-            color: red;
-            border: 2px solid green;
             padding: 10px;
             margin: 5px 0;
             display: inline-block;
             font-family: Arial, sans-serif;
+            border: 2px solid;
+        }
+
+        /* Estilos específicos para cada campo */
+        .fecha-hora {
+            color: red;
+            background-color: #ffe6e6;
+            border-color: green;
+            font-size: 1.2em;
+        }
+
+        .tx-rx {
+            color: blue;
+            background-color: #e6f0ff;
+            border-color: orange;
+            font-size: 1.2em;
+        }
+
+        .frecuencia-rx {
+            color: darkgreen;
+            background-color: #e6ffe6;
+            border-color: lightgreen;
+            font-size: 1em;
+        }
+
+        .frecuencia-tx {
+            color: darkblue;
+            background-color: #e6e6ff;
+            border-color: lightblue;
+            font-size: 1em;
+        }
+
+        .ip {
+            color: purple;
+            background-color: #fbe6ff;
+            border-color: pink;
+            font-size: 1em;
+        }
+
+        .estado {
+            color: black;
+            background-color: #f2f2f2;
+            border-color: gray;
+            font-size: 1em;
+        }
+
+        .ber {
+            color: darkred;
+            background-color: #ffe6e6;
+            border-color: red;
+            font-size: 1em;
+        }
+
+        .lh {
+            color: darkorange;
+            background-color: #fff4e6;
+            border-color: orange;
+            font-size: 1em;
+        }
+
+        .rssi {
+            color: teal;
+            background-color: #e6ffff;
+            border-color: lightblue;
+            font-size: 1em;
+        }
+
+        .temp {
+            color: darkgoldenrod;
+            background-color: #fffbe6;
+            border-color: gold;
+            font-size: 1em;
+        }
+
+        .tg {
+            color: navy;
+            background-color: #e6e6ff;
+            border-color: darkblue;
+            font-size: 1em;
         }
     </style>
     <script>
@@ -47,17 +125,9 @@
 <body>
     <h1>Monitor de Puerto Serie</h1>
     <!-- Divs para mostrar los datos -->
-    <div class="dato" id="fecha-y-hora">Fecha y Hora: Cargando...</div>
-    <div class="dato" id="tx-rx">TX/RX: Cargando...</div>
-    <div class="dato" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
-    <div class="dato" id="frecuencia-tx">Frecuencia TX: Cargando...</div>
-    <div class="dato" id="ip">IP: Cargando...</div>
-    <div class="dato" id="estado">Estado: Cargando...</div>
-    <div class="dato" id="ber">Ber: Cargando...</div>
-    <div class="dato" id="lh">LH: Cargando...</div>
-    <div class="dato" id="rssi">RSSI: Cargando...</div>
-    <div class="dato" id="temp">Temp: Cargando...</div>
-    <div class="dato" id="tg">TG: Cargando...</div>
-</body>
-</html>
-
+    <div class="dato fecha-hora" id="fecha-y-hora">Fecha y Hora: Cargando...</div>
+    <div class="dato tx-rx" id="tx-rx">TX/RX: Cargando...</div>
+    <div class="dato frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
+    <div class="dato frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div>
+    <div class="dato ip" id="ip">IP: Cargando...</div>
+    <div class="dato estado" id="estado">Estado: Cargando...</div
