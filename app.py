@@ -17,7 +17,7 @@ except serial.SerialException as e:
 
 # Almacén para los últimos datos recibidos
 last_data = {
-    " ": "N/A",
+    "Fecha y Hora": "N/A",
     "Estación": "N/A",
     "TX/RX": "N/A",
     "Frecuencia RX": "N/A",
@@ -35,7 +35,7 @@ last_data = {
 def parse_data(data_str):
     result = {}
     match_patterns = {
-        "f": r't2.txt="([^"]+)"',
+        "Fecha y Hora": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
         "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
