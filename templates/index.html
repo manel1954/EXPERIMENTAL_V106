@@ -3,54 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMDVMHost Virtual Nextion</title>
+    <title>Datos del Puerto Serie</title>
     <style>
-        body {
-            background-color: #152637;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .label {
-            margin: 10px;
+        .fecha-hora, .tx-rx {
             padding: 10px;
-            /* border: 1px solid #1E90FF; */
-            border: 1px solid #ffffff;
             display: inline-block;
-            width: 500px;
-            font-size: 30px;
+            font-family: Arial, sans-serif;
+        }
+        .fecha-hora {
+            color: red;
+            border: 2px solid green;
+        }
+        .tx-rx {
+            color: blue;
+            border: 2px solid orange;
         }
     </style>
-</head>
-<body>
-    <h1>MMDVMHost Virtual Nextion</h1>
-    <div id="data-container"></div>
     <script>
         async function fetchData() {
             try {
                 const response = await fetch('/data');
                 const data = await response.json();
-                const container = document.getElementById('data-container');
-                container.innerHTML = ''; // Limpia el contenedor
 
-                if (data.error) {
-                    container.innerHTML = `<div class="label">Error: ${data.error}</div>`;
-                } else {
-                    Object.keys(data).forEach(key => {
-                        const div = document.createElement('div');
-                        div.className = 'label';
-                        div.textContent = `${key}: ${data[key]}`;
-                        container.appendChild(div);
-                    });
-                }
+                // Actualiza Fecha y Hora
+                const fechaHoraElem = document.getElementById('fecha-hora');
+                fechaHoraElem.textContent = data["Fecha y Hora"] || "N/A";
+
+                // Actualiza TX/RX
+                const txRxElem = document.getElementById('tx-rx');
+                txRxElem.textContent = data["TX/RX"] || "N/A";
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
 
-        setInterval(fetchData, 1000); // Actualiza cada segundo 
-        fetchData();
+        // Actualiza los datos cada 2 segundos
+        setInterval(fetchData, 2000);
+
+        // Cargar datos al inicio
+        document.addEventListener('DOMContentLoaded', fetchData);
     </script>
+</head>
+<body>
+    <h1>Monitor de Puerto Serie</h1>
+    <div class="fecha-hora" id="fecha-hora">Cargando Fecha y Hora...</div>
+    <div class="tx-rx" id="tx-rx">Cargando TX/RX...</div>
 </body>
 </html>
