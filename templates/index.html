@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Puerto Serie - MMDVMHost</title>
+    <title>Datos en Tiempo Real</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,122 +26,91 @@
         .card h3 {
             margin-top: 0;
         }
-        .status {
-            font-weight: bold;
-        }
-        .error {
-            color: red;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Datos en tiempo real del MMDVMHost</h1>
+        <h1>Datos en Tiempo Real</h1>
         
-        <div id="data-container">
-            <div class="card">
-                <h3>Fecha y Hora</h3>
-                <p id="fecha-hora">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Fecha y Hora</h3>
+            <p id="fecha-hora">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>Estación</h3>
-                <p id="estacion">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Estación</h3>
+            <p id="estacion">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>TX/RX</h3>
-                <p id="tx-rx">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>TX/RX</h3>
+            <p id="tx-rx">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>Frecuencia RX</h3>
-                <p id="frecuencia-rx">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Frecuencia RX</h3>
+            <p id="frecuencia-rx">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>Frecuencia TX</h3>
-                <p id="frecuencia-tx">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Frecuencia TX</h3>
+            <p id="frecuencia-tx">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>IP</h3>
-                <p id="ip">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>IP</h3>
+            <p id="ip">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>Estado</h3>
-                <p id="estado">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Estado</h3>
+            <p id="estado">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>BER</h3>
-                <p id="ber">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>BER</h3>
+            <p id="ber">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>RSSI</h3>
-                <p id="rssi">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>RSSI</h3>
+            <p id="rssi">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>Temperatura</h3>
-                <p id="temp">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>Temperatura</h3>
+            <p id="temp">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>TG</h3>
-                <p id="tg">Cargando...</p>
-            </div>
+        <div class="card">
+            <h3>TG</h3>
+            <p id="tg">Esperando...</p>
+        </div>
 
-            <div class="card">
-                <h3>LH</h3>
-                <p id="lh">Cargando...</p>
-            </div>
-
-            <div class="card">
-                <h3>Última actualización</h3>
-                <p id="actualizacion">Esperando datos...</p>
-            </div>
+        <div class="card">
+            <h3>LH</h3>
+            <p id="lh">Esperando...</p>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.min.js"></script>
     <script>
-        // Función para obtener datos del servidor
-        async function fetchData() {
-            try {
-                const response = await fetch('/data');
-                if (!response.ok) {
-                    throw new Error(`Error en la petición: ${response.status}`);
-                }
+        const socket = io();
 
-                const data = await response.json();
-
-                // Actualizar los elementos HTML con los nuevos datos
-                document.getElementById('fecha-hora').textContent = data['Fecha y Hora'] || 'N/A';
-                document.getElementById('estacion').textContent = data['Estación'] || 'N/A';
-                document.getElementById('tx-rx').textContent = data['TX/RX'] || 'N/A';
-                document.getElementById('frecuencia-rx').textContent = data['Frecuencia RX'] || 'N/A';
-                document.getElementById('frecuencia-tx').textContent = data['Frecuencia TX'] || 'N/A';
-                document.getElementById('ip').textContent = data['IP'] || 'N/A';
-                document.getElementById('estado').textContent = data['Estado'] || 'N/A';
-                document.getElementById('ber').textContent = data['Ber'] || 'N/A';
-                document.getElementById('rssi').textContent = data['RSSI'] || 'N/A';
-                document.getElementById('temp').textContent = data['Temp'] || 'N/A';
-                document.getElementById('tg').textContent = data['TG'] || 'N/A';
-                document.getElementById('lh').textContent = data['LH'] || 'N/A';
-                document.getElementById('actualizacion').textContent = 'Datos actualizados correctamente.';
-            } catch (error) {
-                console.error('Error al obtener datos:', error);
-                document.getElementById('actualizacion').textContent = 'Error al obtener datos.';
-            }
-        }
-
-        // Actualizar los datos cada 5 segundos
-        setInterval(fetchData, 5000);
-
-        // Llamar una vez al cargar la página
-        fetchData();
+        socket.on('update_data', function(data) {
+            document.getElementById('fecha-hora').textContent = data['Fecha y Hora'] || 'N/A';
+            document.getElementById('estacion').textContent = data['Estación'] || 'N/A';
+            document.getElementById('tx-rx').textContent = data['TX/RX'] || 'N/A';
+            document.getElementById('frecuencia-rx').textContent = data['Frecuencia RX'] || 'N/A';
+            document.getElementById('frecuencia-tx').textContent = data['Frecuencia TX'] || 'N/A';
+            document.getElementById('ip').textContent = data['IP'] || 'N/A';
+            document.getElementById('estado').textContent = data['Estado'] || 'N/A';
+            document.getElementById('ber').textContent = data['Ber'] || 'N/A';
+            document.getElementById('rssi').textContent = data['RSSI'] || 'N/A';
+            document.getElementById('temp').textContent = data['Temp'] || 'N/A';
+            document.getElementById('tg').textContent = data['TG'] || 'N/A';
+            document.getElementById('lh').textContent = data['LH'] || 'N/A';
+        });
     </script>
 </body>
 </html>

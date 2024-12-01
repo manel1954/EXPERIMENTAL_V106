@@ -1,21 +1,22 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 import serial
 import re
+import threading
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 # Configuración del puerto serie
 SERIAL_PORT = "/dev/virtual10"
 BAUD_RATE = 9600
 
-# Intentar abrir el puerto serie
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 except serial.SerialException as e:
     print(f"Error al conectar con el puerto: {e}")
     ser = None
 
-# Almacén para los últimos datos recibidos
 last_data = {
     "Fecha y Hora": "N/A",
     "Estación": "N/A",
@@ -55,32 +56,28 @@ def parse_data(data_str):
             result[key] = match.group(1)
     return result
 
-# Ruta principal para servir la interfaz HTML y datos
+# Hilo para leer datos del puerto serie
+def read_serial_data():
+    global last_data
+    while True:
+        if ser and ser.in_waiting > 0:
+            try:
+                data = ser.read(ser.in_waiting).decode('utf-8', errors='ignore')
+                parsed_data = parse_data(data)
+                for key, value in parsed_data.items():
+                    last_data[key] = value
+                # Emitir los nuevos datos a través de WebSocket
+                socketio.emit('update_data', last_data)
+            except Exception as e:
+                print(f"Error al leer datos: {e}")
+
+# Ruta principal
 @app.route('/')
 def index():
-    global last_data
+    return render_template('index.html')
 
-    # Leer datos del puerto serie si hay disponibles
-    if ser and ser.in_waiting > 0:
-        try:
-            data = ser.read(ser.in_waiting).decode('utf-8', errors='ignore')
-            parsed_data = parse_data(data)
-            
-            # Actualizar solo los campos que estén presentes en los nuevos datos
-            for key, value in parsed_data.items():
-                last_data[key] = value
-            
-        except Exception as e:
-            print(f"Error al leer datos: {e}")
+# Iniciar el hilo del puerto serie
+threading.Thread(target=read_serial_data, daemon=True).start()
 
-    # Renderizar la plantilla con los datos
-    return render_template('index.html', data=last_data)
-
-# Ruta para exponer los datos del puerto serie en formato JSON
-@app.route('/data', methods=['GET'])
-def get_data():
-    return jsonify(last_data)
-
-# Iniciar el servidor Flask
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5001)
