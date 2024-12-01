@@ -100,7 +100,7 @@
 
                 campos.forEach(campo => {
                     // Sanitizar el ID del campo para que sea válido en el HTML
-                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, 'A').toLowerCase();
+                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
