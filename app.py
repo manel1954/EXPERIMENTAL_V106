@@ -55,15 +55,9 @@ def parse_data(data_str):
             result[key] = match.group(1)
     return result
 
-# Ruta principal para servir la interfaz HTML
+# Ruta principal para servir la interfaz HTML y datos
 @app.route('/')
 def index():
-    global last_data
-    return render_template('index.html', data=last_data)
-
-# Ruta para exponer los datos del puerto serie
-@app.route('/data', methods=['GET'])
-def get_data():
     global last_data
 
     # Leer datos del puerto serie si hay disponibles
@@ -77,9 +71,14 @@ def get_data():
                 last_data[key] = value
             
         except Exception as e:
-            return jsonify({"error": str(e)})
+            print(f"Error al leer datos: {e}")
 
-    # Siempre devuelve los últimos datos disponibles
+    # Renderizar la plantilla con los datos
+    return render_template('index.html', data=last_data)
+
+# Ruta para exponer los datos del puerto serie en formato JSON
+@app.route('/data', methods=['GET'])
+def get_data():
     return jsonify(last_data)
 
 # Iniciar el servidor Flask
