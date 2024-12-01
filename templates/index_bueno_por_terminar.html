@@ -1,0 +1,37 @@
+<script>
+    async function fetchData() {
+        try {
+            const response = await fetch('/data');
+            const data = await response.json();
+
+            // Lista de los campos que se deben actualizar
+            const campos = [
+                "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
+                "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
+            ];
+
+            campos.forEach(campo => {
+                // Sanitizar el ID del campo para que sea válido en el HTML
+                const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                const elemento = document.getElementById(campoId);
+                if (elemento) {
+                    // Mostrar o esconder el elemento basado en la disponibilidad de datos
+                    if (data[campo]) {
+                        elemento.style.display = "inline-block";
+                        elemento.textContent = `${campo}: ${data[campo]}`;
+                    } else {
+                        elemento.style.display = "none"; // Ocultar si no hay datos
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    // Actualizar los datos cada 2 segundos
+    setInterval(fetchData, 2000);
+
+    // Cargar datos al inicio
+    document.addEventListener('DOMContentLoaded', fetchData);
+</script>
