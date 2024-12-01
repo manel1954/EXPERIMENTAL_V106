@@ -102,11 +102,6 @@
                     // Sanitizar el ID del campo para que sea válido en el HTML
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
-                    if (elemento) {
-
-                            // Para los demás campos, muestra "Cargando..." o el valor recibido
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        }
                     }
                 );
             } catch (error) {
