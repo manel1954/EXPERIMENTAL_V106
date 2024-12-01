@@ -1,100 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos en Tiempo Real</title>
+    <title>Datos del Puerto Serie - MMDVMHost</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .card {
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        table, th, td {
-            border: 1px solid #ddd;
+        .card h3 {
+            margin-top: 0;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
+        .status {
+            font-weight: bold;
         }
-        th {
-            background-color: #f4f4f4;
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Datos del Sistema</h1>
-        <table>
-            <tr>
-                <th>Parámetro</th>
-                <th>Valor</th>
-            </tr>
-            {% for key, value in data.items() %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>
-                    {% if value == "N/A" %}
-                        <span style="color: red;">No disponible</span>
-                    {% elif "Error" in value %}
-                        <span style="color: orange;">{{ value }}</span>
-                    {% else %}
-                        {{ value }}
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h1>Datos en tiempo real del MMDVMHost</h1>
+        
+        <div id="data-container">
+            <div class="card">
+                <h3>Fecha y Hora</h3>
+                <p id="fecha-hora">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Estación</h3>
+                <p id="estacion">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>TX/RX</h3>
+                <p id="tx-rx">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Frecuencia RX</h3>
+                <p id="frecuencia-rx">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Frecuencia TX</h3>
+                <p id="frecuencia-tx">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>IP</h3>
+                <p id="ip">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Estado</h3>
+                <p id="estado">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>BER</h3>
+                <p id="ber">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>RSSI</h3>
+                <p id="rssi">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Temperatura</h3>
+                <p id="temp">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>TG</h3>
+                <p id="tg">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>LH</h3>
+                <p id="lh">Cargando...</p>
+            </div>
+
+            <div class="card">
+                <h3>Última actualización</h3>
+                <p id="actualizacion">Esperando datos...</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Actualizar datos periódicamente
+        // Función para obtener datos del servidor
         async function fetchData() {
             try {
                 const response = await fetch('/data');
+                if (!response.ok) {
+                    throw new Error(`Error en la petición: ${response.status}`);
+                }
+
                 const data = await response.json();
 
-                const tableBody = document.querySelector('table tbody');
-                tableBody.innerHTML = '';
-
-                for (const [key, value] of Object.entries(data)) {
-                    const row = document.createElement('tr');
-
-                    const cellKey = document.createElement('td');
-                    cellKey.textContent = key;
-                    row.appendChild(cellKey);
-
-                    const cellValue = document.createElement('td');
-                    if (value === "N/A") {
-                        cellValue.innerHTML = '<span style="color: red;">No disponible</span>';
-                    } else if (value.includes("Error")) {
-                        cellValue.innerHTML = `<span style="color: orange;">${value}</span>`;
-                    } else {
-                        cellValue.textContent = value;
-                    }
-                    row.appendChild(cellValue);
-
-                    tableBody.appendChild(row);
-                }
+                // Actualizar los elementos HTML con los nuevos datos
+                document.getElementById('fecha-hora').textContent = data['Fecha y Hora'] || 'N/A';
+                document.getElementById('estacion').textContent = data['Estación'] || 'N/A';
+                document.getElementById('tx-rx').textContent = data['TX/RX'] || 'N/A';
+                document.getElementById('frecuencia-rx').textContent = data['Frecuencia RX'] || 'N/A';
+                document.getElementById('frecuencia-tx').textContent = data['Frecuencia TX'] || 'N/A';
+                document.getElementById('ip').textContent = data['IP'] || 'N/A';
+                document.getElementById('estado').textContent = data['Estado'] || 'N/A';
+                document.getElementById('ber').textContent = data['Ber'] || 'N/A';
+                document.getElementById('rssi').textContent = data['RSSI'] || 'N/A';
+                document.getElementById('temp').textContent = data['Temp'] || 'N/A';
+                document.getElementById('tg').textContent = data['TG'] || 'N/A';
+                document.getElementById('lh').textContent = data['LH'] || 'N/A';
+                document.getElementById('actualizacion').textContent = 'Datos actualizados correctamente.';
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error('Error al obtener datos:', error);
+                document.getElementById('actualizacion').textContent = 'Error al obtener datos.';
             }
         }
 
-        // Llamar fetchData cada 2 segundos
-        setInterval(fetchData, 2000);
+        // Actualizar los datos cada 5 segundos
+        setInterval(fetchData, 5000);
+
+        // Llamar una vez al cargar la página
+        fetchData();
     </script>
 </body>
 </html>
