@@ -58,7 +58,10 @@ def parse_data(data_str):
 # Ruta principal para servir la interfaz HTML
 @app.route('/')
 def index():
-    return render_template('index.html')
+    global last_data
+
+    # Pasar los datos al archivo HTML respetando las comparaciones
+    return render_template('index.html', data=last_data)
 
 # Ruta para exponer los datos del puerto serie
 @app.route('/data', methods=['GET'])
