@@ -88,14 +88,7 @@
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
-                        if (campo === "TX/RX") {
-                            // Mostrar "No hay datos" si el valor no comienza con el número 2
-                            const valor = data[campo];
-                            elemento.textContent = `${campo}: ${valor && valor.startsWith("2") ? valor : "No hay datos"}`;
-                        } else {
-                            // Para los demás campos, muestra "Cargando..." o el valor recibido
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        }
+                        elemento.textContent = ${campo}: ${data[campo] || "N/A"};
                     }
                 });
             } catch (error) {
