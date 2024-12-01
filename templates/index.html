@@ -89,14 +89,15 @@
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
-                    // Mostrar o esconder el elemento basado en la disponibilidad de datos
-                    if (data[campo]) {
-                        elemento.style.display = "inline-block";
-                        elemento.textContent = `${campo}: ${data[campo]}`;
-                    } else {
-                        elemento.style.display = "none"; // Ocultar si no hay datos
+                        if (campo === "TX/RX") {
+                            // Mostrar "No hay datos" si el valor no comienza con el número 2
+                            const valor = data[campo];
+                            elemento.textContent = `${campo}: ${valor && valor.startsWith("2") ? valor : "No hay datos"}`;
+                        } else {
+                            // Para los demás campos, muestra "Cargando..." o el valor recibido
+                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
+                        }
                     }
-                }
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
