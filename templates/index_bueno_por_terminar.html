@@ -16,59 +16,73 @@
 
     <style>
         body {
-            background: #000000;
+            background: rgb(6, 26, 43);
         }
 
         .fecha-hora {
-            color: white;
-            border: 2px solid orange;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
             font-size: 35px;
         }
 
         .tx-rx {
-            color: white;
-            border: 2px solid white;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
             font-size: 35px;
         }
 
         .frecuencia-rx {
             color: orange;
-            border: 2px solid orange;
+            border: 2px solid rgb(219, 217, 215);
             font-size: 18px;
         }
 
         .frecuencia-tx {
             color: orange;
-            border: 2px solid orange;
+            border: 2px solid rgb(219, 217, 215);
             font-size: 18px;
         }
 
         .ip {
-            color: purple;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .estado {
-            color: black;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .ber {
-            color: darkred;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .lh {
-            color: darkorange;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .rssi {
-            color: teal;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .temp {
-            color: darkgoldenrod;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
 
         .tg {
-            color: navy;
+            color: rgb(219, 217, 215);
+            border: 2px solid rgb(219, 217, 215);
+            font-size: 18px;
         }
     </style>
 
@@ -114,35 +128,61 @@
 <body>
 <div class="container">
     <div class="col-lg-4 col-lg-offset-4 text-center">
-        <h1 style="color:white">Virtual Nextion</h1>
+        <h3 style="color:white">MMDVMHost Virtual Nextion</h3>
     </div>
 
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 text-center">
-            <div class="dato fecha-hora" id="fecha-y-hora">Fecha y Hora: Cargando...</div><br>
+            <div class="dato fecha-hora" id="fecha-y-hora">Fecha y Hora: Cargando...</div>
         </div>
-    </div>
+    </div><!-- row -->
 
-    <div class="row">
-        <div class="col-lg-6 col-lg-offset-3 text-center">
-            <div class="dato tx-rx" id="tx-rx">TX/RX: No hay datos</div><br>
-        </div>
-    </div>
+    <br>
 
     <div class="row">
         <div class="col-lg-3 col-lg-offset-3 text-center frecuencia-rx" id="frecuencia-rx">Frecuencia RX: Cargando...</div>
         <div class="col-lg-3 text-center frecuencia-tx" id="frecuencia-tx">Frecuencia TX: Cargando...</div><br>
-    </div>
+    </div><!-- row -->
+
+    <br>
 
     <div class="row">
-        <div class="dato ip" id="ip">IP: Cargando...</div>
-        <div class="dato estado" id="estado">Estado: Cargando...</div><br>
-        <div class="dato ber" id="ber">Ber: Cargando...</div>
-        <div class="dato lh" id="lh">LH: Cargando...</div><br>
-        <div class="dato rssi" id="rssi">RSSI: Cargando...</div>
-        <div class="dato temp" id="temp">Temp: Cargando...</div><br>
-        <div class="dato tg" id="tg">TG: Cargando...</div>
-    </div>
+        <div class="col-lg-3 col-lg-offset-3 text-center rssi" id="rssi">RSSI: Cargando...</div>
+        <div class="col-lg-3 text-center estado" id="estado">Estado: Cargando...</div><br>
+    </div><!-- row -->
+
+    <br>
+
+    <div class="row">
+        <div class="col-lg-3 col-lg-offset-3 text-center ber" id="ber">Ber: Cargando...</div>
+        <div class="col-lg-3 text-center lh" id="lh">LH: Cargando...</div><br>
+    </div><!-- row -->
+
+    <br>
+
+    <div class="row">
+        <div class="col-lg-3 col-lg-offset-3 text-center rssi" id="rssi">RSSI: Cargando...</div>
+        <div class="col-lg-3 text-center temp" id="temp">Temp: Cargando...</div><br>
+    </div><!-- row -->
+
+    <br>
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 text-center ip" id="ip">IP: Cargando...</div>
+    </div><!-- row -->
+
+    <br>
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 text-center">
+            <div class="dato tx-rx" id="tx-rx">TX/RX: Cargando...</div>
+        </div>
+    </div><!-- row -->
+
+
+
+</div><!-- container -->
+
 </div>
 </body>
 </html>
