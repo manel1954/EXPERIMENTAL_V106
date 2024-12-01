@@ -38,15 +38,15 @@ def parse_data(data_str):
         "Fecha y Hora": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
-        "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
-        "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
-        "IP": r'\b1t3.txt="([^"]+)"\b',
-        "Estado": r'\b1t0.txt="([^"]+)"\b',
+        "Frecuencia RX": r'\b1t30.txt="([^"]+)"',
+        "Frecuencia TX": r'\b1t32.txt="([^"]+)"',
+        "IP": r'\b1t3.txt="([^"]+)"',
+        "Estado": r'\b1t0.txt="([^"]+)"',
         "Ber": r't[47]\.txt="([^"]+)"',
         "LH": r'50t[02]\.txt="([^"]+)"',
         "RSSI": r't[35]\.txt="([^"]+)"',
-        "Temp": r'\b1t20.txt="([^"]+)"\b',
-        "TG": r'\b1t[13]\.txt="([^"]+)"\b',
+        "Temp": r'\b1t20.txt="([^"]+)"',
+        "TG": r'\b1t[13]\.txt="([^"]+)"',
     }
 
     for key, pattern in match_patterns.items():
