@@ -59,8 +59,6 @@ def parse_data(data_str):
 @app.route('/')
 def index():
     global last_data
-
-    # Pasar los datos al archivo HTML
     return render_template('index.html', data=last_data)
 
 # Ruta para exponer los datos del puerto serie
