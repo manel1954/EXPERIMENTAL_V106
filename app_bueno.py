@@ -38,8 +38,8 @@ def parse_data(data_str):
         "Fecha y Hora": r't2.txt="([^"]+)"',
         "Estación": r'20t0.txt="([^"]+)"',
         "TX/RX": r'50t[02]\.txt="([^"]+)"',
-        "Frecuencia RX": r'\b1t30.txt="([^"]+)"',
-        "Frecuencia TX": r'\b1t32.txt="([^"]+)"',
+        "Frecuencia RX": r'\b1t30.txt="([^"]+)"\b',
+        "Frecuencia TX": r'\b1t32.txt="([^"]+)"\b',
         "IP": r'\b1t3.txt="([^"]+)"\b',
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
@@ -58,10 +58,7 @@ def parse_data(data_str):
 # Ruta principal para servir la interfaz HTML
 @app.route('/')
 def index():
-    global last_data
-
-    # Pasar los datos al archivo HTML respetando las comparaciones
-    return render_template('index.html', data=last_data)
+    return render_template('index.html')
 
 # Ruta para exponer los datos del puerto serie
 @app.route('/data', methods=['GET'])
@@ -86,4 +83,4 @@ def get_data():
 
 # Iniciar el servidor Flask
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5000)
