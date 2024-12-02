@@ -167,7 +167,7 @@
                     if (elemento) {
                         // Si el campo es TG y contiene "[MMDVM IDLE]", modifica TX/RX
                         if (campo === "TG" && data[campo] === "[MMDVM IDLE]") {
-                            const txRxElemento = document.getElementById("tx-rx");
+                            const txRxElemento = document.getElementById("TX/RX");
                             if (txRxElemento) {
                                 txRxElemento.textContent = "TX/RX: N/A";
                             }
