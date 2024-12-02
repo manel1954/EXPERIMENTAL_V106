@@ -153,17 +153,8 @@
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
                         // Verificar si el campo TG contiene "MMDVM IDLE"
-                        if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
+                        if (campo === "RSSI" && data["TG"] === "MMDVM IDLE") {
                             elemento.textContent = `${campo}: N/A`;
-                        } 
-                        // Verificar el campo RSSI
-                        else if (campo === "RSSI") {
-                            // Si el primer carácter de RSSI no es "-", mostrar "N/A"
-                            if (data["TX/RX"] && data["TG"] === "MMDVM IDLE") {
-                                elemento.textContent = `${campo}: N/A`;
-                            } else {
-                                elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                            }
                         } else {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
                         }
@@ -180,7 +171,6 @@
         // Cargar datos al inicio
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
-    
     
 
 
