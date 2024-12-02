@@ -26,7 +26,7 @@ last_data = {
     "Estado": "N/A",
     "Ber": "N/A",
     "LH": "N/A",
-    "RSSI/ID": "N/A",
+    "RSSI": "N/A",
     "Temp": "N/A",
     "TG": "N/A",
 }
@@ -44,7 +44,7 @@ def parse_data(data_str):
         "Estado": r'\b1t0.txt="([^"]+)"\b',
         "Ber": r't[47]\.txt="([^"]+)"',
         "LH": r'50t[02]\.txt="([^"]+)"',
-        "RSSI/IDLE": r't[35]\.txt="([^"]+)"',
+        "RSSI": r't[35]\.txt="([^"]+)"',
         "Temp": r'\b1t20.txt="([^"]+)"\b',
         "TG": r'\b1t[13]\.txt="([^"]+)"\b',
     }
