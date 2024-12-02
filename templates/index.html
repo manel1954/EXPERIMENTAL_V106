@@ -166,7 +166,7 @@
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
                         // Verificar el campo TG y actualizar TX/RX si es necesario
-                        if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
+                        if (campo ["TG"] === "MMDVM IDLE") {
                             elemento.textContent = "TX/RX: N/A";
                         } else if (campo === "TG") {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
