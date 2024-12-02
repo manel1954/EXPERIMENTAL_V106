@@ -24,11 +24,11 @@ last_data = {
     "Frecuencia TX": "N/A",
     "IP": "N/A",
     "Estado": "N/A",
-    "Ber/Callsign": "N/A",
+    "Ber": "N/A",
     "LH": "N/A",
-    "RSSI/ID": "N/A",
+    "RSSI": "N/A",
     "Temp": "N/A",
-    "TG/IDLE": "N/A",
+    "TG": "N/A",
 }
 
 # Función para parsear datos del puerto serie
