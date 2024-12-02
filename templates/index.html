@@ -154,7 +154,7 @@
                     if (elemento) {
                         // Verificar si el campo TG contiene "MMDVM IDLE"
                         if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
-                            elemento.textContent = `${campo}: N/A`;
+                            elemento.textContent = `${campo}: . . .`;
                         } else {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
                         }
