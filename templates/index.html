@@ -152,18 +152,10 @@
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
-                        if (campo === "RSSI") {
-                            // Verificar si RSSI está inactivo
-                            if (data[campo] === "Inactivo" || data[campo] == null) {
-                                elemento.textContent = `${campo}: N/A`;
-                            } else {
-                                elemento.textContent = `${campo}: ${data[campo]}`;
-                            }
-                        } else if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
-                            // Manejar la lógica de TX/RX basado en TG
+                        // Verificar si el campo RSSI contiene "id"
+                        if (campo === "RSSI" && data[campo] && data[campo].includes("id")) {
                             elemento.textContent = `${campo}: N/A`;
                         } else {
-                            // Actualizar los demás campos
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
                         }
                     }
@@ -179,6 +171,7 @@
         // Cargar datos al inicio
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
+    
     
     
 
