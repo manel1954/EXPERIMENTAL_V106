@@ -160,7 +160,7 @@
                         let valor = data[campo] || "Cargando...";
     
                         // Si TG es "MMDVM IDLE", ajusta los campos correspondientes
-                        if (campo === "TX/RX" && data["tg"] === "MMDVM IDLE") {
+                        if (campo === "TX/RX" && data["tx-rx"] === "MMDVM IDLE") {
                             valor = "N/A";
                         } else if ((campo === "Frecuencia RX" || campo === "Frecuencia TX") && data["TG"] === "MMDVM IDLE") {
                             valor = "N/A";
