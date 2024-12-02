@@ -92,49 +92,6 @@
         }
     </style>
 
-    <!-- <script>
-        async function fetchData() {
-            try {
-                const response = await fetch('/data');
-                const data = await response.json();
-
-                // Actualizar todos los campos
-                const campos = [
-                    "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
-                    "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
-                ];
-
-                campos.forEach(campo => {
-                    // Sanitizar el ID del campo para que sea válido en el HTML
-                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                    const elemento = document.getElementById(campoId);
-                    if (elemento) {
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        }
-                    }
-                );
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        // Actualizar los datos cada 2 segundos
-        setInterval(fetchData, 2000);
-
-        // Cargar datos al inicio
-        document.addEventListener('DOMContentLoaded', fetchData);
-    </script> -->
-
-
-
-
-
-
-
-
-
-
-
     <script>
         async function fetchData() {
             try {
