@@ -26,7 +26,7 @@ last_data = {
     "Estado": "N/A",
     "Ber": "N/A",
     "LH": "N/A",
-    "RSSI": "N/A",
+    "RSSI/ID": "N/A",
     "Temp": "N/A",
     "TG": "N/A",
 }
