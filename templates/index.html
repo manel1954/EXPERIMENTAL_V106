@@ -149,38 +149,39 @@
 
 
     <script>
-        async function fetchData() {
-            try {
-                const response = await fetch('/data');
-                const data = await response.json();
-    
-                // Actualizar todos los campos
-                const campos = [
-                    "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
-                    "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
-                ];
-    
-                campos.forEach(campo => {
-                    // Sanitizar el ID del campo para que sea válido en el HTML
-                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                    const elemento = document.getElementById(campoId);
-                    if (elemento) {
-                        // Verificar el campo TG y actualizar TX/RX si es necesario
-                        if (campo ["TG"] === "MMDVM IDLE") {
-                            elemento.textContent = "TX/RX: N/A";
-                        } else if (campo === "TG") {
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        } else if (campo === "TX/RX") {
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        } else {
-                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                        }
+async function fetchData() {
+    try {
+        const response = await fetch('/data');
+        const data = await response.json();
+
+        // Actualizar todos los campos
+        const campos = [
+            "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
+            "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
+        ];
+
+        campos.forEach(campo => {
+            // Sanitizar el ID del campo para que sea válido en el HTML
+            const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const elemento = document.getElementById(campoId);
+
+            if (elemento) {
+                let valor = data[campo] || "Cargando...";
+                // Si el campo TG contiene "MMDVM IDLE", ajustar el campo TX/RX
+                if (campo === "TG" && valor === "MMDVM IDLE") {
+                    const txRxElemento = document.getElementById("tx-rx");
+                    if (txRxElemento) {
+                        txRxElemento.textContent = "TX/RX: N/A";
                     }
-                });
-            } catch (error) {
-                console.error('Error fetching data:', error);
+                }
+                elemento.textContent = `${campo}: ${valor}`;
             }
-        }
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
     
         // Actualizar los datos cada 2 segundos
         setInterval(fetchData, 2000);
