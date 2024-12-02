@@ -149,9 +149,6 @@
 
 
     <script>
-        let lastFechaHora = ""; // Guardar el último valor de "Fecha y Hora"
-        let noUpdateTimeout;    // Almacenar el temporizador
-    
         async function fetchData() {
             try {
                 const response = await fetch('/data');
@@ -164,35 +161,20 @@
                 ];
     
                 campos.forEach(campo => {
+                    // Sanitizar el ID del campo para que sea válido en el HTML
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
+                        // Si el campo es TG y contiene "[MMDVM IDLE]", modifica TX/RX
+                        if (campo === "TG" && data[campo] === "[MMDVM IDLE]") {
+                            const txRxElemento = document.getElementById("tx-rx");
+                            if (txRxElemento) {
+                                txRxElemento.textContent = "TX/RX: N/A";
+                            }
+                        }
                         elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
                     }
                 });
-    
-                // Verificar cambios en "Fecha y Hora"
-                const fechaHoraElem = document.getElementById("fecha-y-hora");
-                const txRxElem = document.getElementById("tx-rx");
-    
-                if (fechaHoraElem) {
-                    const currentFechaHora = fechaHoraElem.textContent;
-    
-                    // Si "Fecha y Hora" no ha cambiado, iniciar temporizador para TX/RX
-                    if (currentFechaHora === lastFechaHora) {
-                        if (!noUpdateTimeout) {
-                            noUpdateTimeout = setTimeout(() => {
-                                txRxElem.textContent = "TX/RX: N/A";
-                            }, 1000); // 1 segundo sin actualizar
-                        }
-                    } else {
-                        // Si "Fecha y Hora" cambia, restablecer "TX/RX" y temporizador
-                        lastFechaHora = currentFechaHora;
-                        txRxElem.textContent = "TX/RX: " + (data["TX/RX"] || "Cargando...");
-                        clearTimeout(noUpdateTimeout);
-                        noUpdateTimeout = null;
-                    }
-                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -204,6 +186,7 @@
         // Cargar datos al inicio
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
+    
     
     
     
