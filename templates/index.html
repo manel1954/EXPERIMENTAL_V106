@@ -150,37 +150,37 @@
 
     <script>
         async function fetchData() {
-    try {
-        const response = await fetch('/data');
-        const data = await response.json();
-
-        // Actualizar todos los campos
-        const campos = [
-            "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
-            "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
-        ];
-
-        campos.forEach(campo => {
-            // Sanitizar el ID del campo para que sea válido en el HTML
-            const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-            const elemento = document.getElementById(campoId);
-
-            if (elemento) {
-                // Si TG es "MMDVM IDLE", modificar TX/RX y otros según la lógica deseada
-                if (campo === "TG" && data["TG"] === "MMDVM IDLE") {
-                    elemento.textContent = `${campo}: N/A`;
-                } else if (campo === "N/A") {
-                    elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                } else {
-                    elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                }
+            try {
+                const response = await fetch('/data');
+                const data = await response.json();
+    
+                // Actualizar todos los campos
+                const campos = [
+                    "Fecha y Hora", "TX/RX", "Frecuencia RX", "Frecuencia TX",
+                    "IP", "Estado", "Ber", "LH", "RSSI", "Temp", "TG"
+                ];
+    
+                campos.forEach(campo => {
+                    // Sanitizar el ID del campo para que sea válido en el HTML
+                    const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                    const elemento = document.getElementById(campoId);
+                    if (elemento) {
+                        // Verificar el campo TG y actualizar TX/RX si es necesario
+                        if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
+                            elemento.textContent = "TX/RX: N/A";
+                        } else if (campo === "TG") {
+                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
+                        } else if (campo === "TX/RX") {
+                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
+                        } else {
+                            elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
+        }
     
         // Actualizar los datos cada 2 segundos
         setInterval(fetchData, 2000);
@@ -188,6 +188,7 @@
         // Cargar datos al inicio
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
+    
     
 
 
