@@ -149,7 +149,8 @@
 
 
     <script>
-        let previousSeconds = null; // Almacenar los segundos previos para detectar cambios
+        let lastFechaHora = ""; // Guardar el último valor de "Fecha y Hora"
+        let noUpdateTimeout;    // Almacenar el temporizador
     
         async function fetchData() {
             try {
@@ -163,7 +164,6 @@
                 ];
     
                 campos.forEach(campo => {
-                    // Sanitizar el ID del campo para que sea válido en el HTML
                     const campoId = campo.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
@@ -171,24 +171,26 @@
                     }
                 });
     
-                // Verificar si los segundos están corriendo en "Fecha y Hora"
+                // Verificar cambios en "Fecha y Hora"
                 const fechaHoraElem = document.getElementById("fecha-y-hora");
                 const txRxElem = document.getElementById("tx-rx");
     
-                if (fechaHoraElem && fechaHoraElem.textContent.includes("Fecha y Hora")) {
-                    // Extraer segundos del texto
-                    const match = fechaHoraElem.textContent.match(/(\d{2}):(\d{2}):(\d{2})/); // Buscar formato HH:MM:SS
-                    if (match) {
-                        const seconds = parseInt(match[3], 10); // Extraer segundos
+                if (fechaHoraElem) {
+                    const currentFechaHora = fechaHoraElem.textContent;
     
-                        // Detectar si los segundos han cambiado
-                        if (previousSeconds !== null && previousSeconds !== seconds) {
-                            txRxElem.textContent = "TX/RX: N/A"; // Actualizar a N/A cuando los segundos cambian
-                        } else if (previousSeconds === seconds) {
-                            txRxElem.textContent = `TX/RX: ${data["TX/RX"] || "Cargando..."}`; // Restaurar valor original
+                    // Si "Fecha y Hora" no ha cambiado, iniciar temporizador para TX/RX
+                    if (currentFechaHora === lastFechaHora) {
+                        if (!noUpdateTimeout) {
+                            noUpdateTimeout = setTimeout(() => {
+                                txRxElem.textContent = "TX/RX: N/A";
+                            }, 5000); // 5 segundos sin actualizar
                         }
-    
-                        previousSeconds = seconds; // Actualizar el valor previo
+                    } else {
+                        // Si "Fecha y Hora" cambia, restablecer "TX/RX" y temporizador
+                        lastFechaHora = currentFechaHora;
+                        txRxElem.textContent = "TX/RX: " + (data["TX/RX"] || "Cargando...");
+                        clearTimeout(noUpdateTimeout);
+                        noUpdateTimeout = null;
                     }
                 }
             } catch (error) {
@@ -202,6 +204,7 @@
         // Cargar datos al inicio
         document.addEventListener('DOMContentLoaded', fetchData);
     </script>
+    
     
     
     
