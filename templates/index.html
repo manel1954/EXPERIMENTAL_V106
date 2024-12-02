@@ -153,7 +153,7 @@
                     const elemento = document.getElementById(campoId);
                     if (elemento) {
                         // Verificar si el campo TG contiene "MMDVM IDLE"
-                        if (campo === "RSSI" && data["TG"] === "MMDVM IDLE") {
+                        if (campo = "RSSI" && data["TG"] === "MMDVM IDLE") {
                             elemento.textContent = `${campo}: N/A`;
                         } else {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
