@@ -167,7 +167,7 @@
 
             if (elemento) {
                 // Si TG es "MMDVM IDLE", modificar TX/RX y otros según la lógica deseada
-                if (campo === "TX/RX" && data["TG"] === "MMDVM IDLE") {
+                if (campo === "TG" && data["TG"] === "MMDVM IDLE") {
                     elemento.textContent = `${campo}: N/A`;
                 } else if (campo === "TG") {
                     elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
