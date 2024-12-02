@@ -161,13 +161,12 @@
                             // Si el primer carácter de RSSI no es "-", mostrar "N/A"
                             if (data["RSSI"] && data["RSSI"].charAt(0) !== '-') {
                                 elemento.textContent = `${campo}: N/A`;
-                            } else {
-                                elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
-                            }
+
                         } else {
                             elemento.textContent = `${campo}: ${data[campo] || "Cargando..."}`;
                         }
                     }
+                }
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
