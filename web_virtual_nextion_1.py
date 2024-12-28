@@ -58,7 +58,7 @@ def parse_data(data_str):
 # Ruta principal para servir la interfaz HTML
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index_1.html')
 
 # Ruta para exponer los datos del puerto serie
 @app.route('/data', methods=['GET'])
@@ -83,4 +83,4 @@ def get_data():
 
 # Iniciar el servidor Flask
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)
