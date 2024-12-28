@@ -5,7 +5,7 @@ import re
 app = Flask(__name__)
 
 # Configuración del puerto serie
-SERIAL_PORT = "/dev/virtual10"
+SERIAL_PORT = "/dev/virtual20"
 BAUD_RATE = 9600
 
 # Intentar abrir el puerto serie
@@ -58,7 +58,7 @@ def parse_data(data_str):
 # Ruta principal para servir la interfaz HTML
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index_2.html')
 
 # Ruta para exponer los datos del puerto serie
 @app.route('/data', methods=['GET'])
