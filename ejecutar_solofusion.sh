@@ -13,3 +13,4 @@ xterm -geometry 87x5+1287+943 -bg black -fg orange -fa 'serift' -fs 9x -T YSFGat
 cd /home/pi/MMDVMHost
 xterm -geometry 87x5+1287+832 -bg black -fg orange -fa 'serift' -fs 9x -T MMDVMFUSION -e sudo ./MMDVMFUSION MMDVMFUSION.ini
 
+
