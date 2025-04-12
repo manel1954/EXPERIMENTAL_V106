@@ -29,6 +29,9 @@
                         cp DMRIds.dat /home/pi/DMR2YSF/
 
                         #14-04-2025 cambio
+                        cd /home/pi/MMDVMHost
+                        sudo curl --fail -o DMRIds.dat -s http://www.pistar.uk/downloads/DMRIds.dat
+                        sudo chmod 777 -R /var/lib/mmdvm
                         cp DMRIds.dat /home/pi/MMDVMHost/
 
                         cp DMRIds.dat /home/pi/YSF2DMR/
