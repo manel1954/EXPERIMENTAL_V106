@@ -6,7 +6,7 @@
                         #sudo rm /usr/bin/dv_serial
                         #sudo mkdir /home/pi/dv4mini
                         #sudo chmod 777 -R /home/pi/dv4mini
-                        cd /home/pi/A108/DV4MINI-RPI_2025_04_22
+                        cd /home/pi/A108/DV4MINI-RPI_2025_04_22/
                         sudo cp dv_serial /home/pi/dv4mini
                         sudo cp dv4mini.exe /home/pi/dv4mini
                         sudo cp xref.ip /home/pi/dv4mini
