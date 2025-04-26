@@ -26,11 +26,13 @@ MARRON="\33[38;5;138m"
                         sudo curl --fail -o DExtra_Hosts.txt -s http://www.pistar.uk/downloads/DExtra_Hosts.txt
                         sudo curl --fail -o DCS_Hosts.txt -s http://www.pistar.uk/downloads/DCS_Hosts.txt
                         sudo curl --fail -o DPlus_Hosts.txt -s http://www.pistar.uk/downloads/DPlus_Hosts.txt
+                        sudo curl --fail -o XLXHosts.txt -s http://www.pistar.uk/downloads/XLXHosts.txt
                         
                         sudo chmod 777 -R /usr/local/share/opendv
                         cp DExtra_Hosts.txt /usr/local/share/opendv
                         cp DPlus_Hosts.txt /usr/local/share/opendv
                         cp DCS_Hosts.txt /usr/local/share/opendv
+                        cp XLXHosts.txt /home/pi/DMRGateway
                         
                         #Dv4mini
                         cd /usr/local/share/opendv/
