@@ -1347,7 +1347,7 @@ echo "==========================================================================
 printf "${GRIS}"
 read port
 #sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
-
+sudo sed -i "74c background-image: url(http://$ip/hblink/images/fondo_hblink3.png);" /opt/HBmonitor/index_template.html
 sudo sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
 sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
 sudo sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
