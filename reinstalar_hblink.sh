@@ -1373,7 +1373,7 @@ sudo sed -i "292c \<img class=\"imagen\" src=\"http://$ip/hblink/images/repetido
 sudo sed -i "298c \<img class=\"imagen\" src=\"http://$ip/hblink/images/puentes.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
 
 # SIGUIENTE LINEA AÑADIDA 28-10-2024
-sudo sed -i "166c \<a href=\"http://$ip:$port/panel_control/panel_control.php\" class=\"btn btn-warning btn-sm mt-auto\"\>DASHBOARD HBLINK3\</a>" /var/www/html/panel_control/panel_control.php
+sudo sed -i "166c \<a href=\"http://$ip:$port/panel_control_experimental_v106/index.php\" class=\"btn btn-warning btn-sm mt-auto\"\>DASHBOARD HBLINK3\</a>" /var/www/html/panel_control/panel_control.php
 
 sudo chmod 777 -R /opt/HBmonitor
 sudo chmod 777 -R /opt/HBlink3
