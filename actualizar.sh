@@ -87,21 +87,25 @@ largo1=`expr $largo - 2`
 linea_YSFGateway=`expr substr $master 1 $largo1`
 masterYSFGateway=$(awk "NR==$linea_YSFGateway" $usuario/YSFClients/YSFGateway/YSFGateway.ini)
 masterYSFGateway=`echo "$masterYSFGateway" | tr -d '[[:space:]]'`
-#ACTUALIZA EL  PANEL DE CONTROL"
-sudo echo 20 > /sys/class/gpio/export
-sudo echo 21 > /sys/class/gpio/export
-sudo echo out > /sys/class/gpio/gpio20/direction
-sudo echo out > /sys/class/gpio/gpio21/direction
-sudo sleep 0.5
-sudo echo 0 > /sys/class/gpio/gpio20/value
-sudo echo 0 > /sys/class/gpio/gpio21/value
-sudo echo 1 > /sys/class/gpio/gpio21/value
-sudo sleep 1
-sudo echo 0 > /sys/class/gpio/gpio20/value
-sudo echo 1 > /sys/class/gpio/gpio20/value
-sudo sleep 0.5
-sudo echo 20 > /sys/class/gpio/unexport
-sudo echo 21 > /sys/class/gpio/unexport
+
+#P ara que funcione hotspot pinchado en gpio
+# Set GPIO20 and GPIO21 to output low (0)
+gpioset gpiochip0 20=0 &
+gpioset gpiochip0 21=0 &
+sleep 0.5
+
+# Set GPIO21 to high (1)
+gpioset gpiochip0 21=1 &
+sleep 1
+
+# Set GPIO20 to low, then to high
+gpioset gpiochip0 20=0 &
+sleep 0.2
+gpioset gpiochip0 20=1 &
+sleep 0.5
+
+# Done. GPIOs will return to input state after script ends
+
 bm=`sed -n '2p'  $usuario/MMDVMHost/MMDVMBM.ini`
 plus=`sed -n '2p'  $usuario/MMDVMHost/MMDVMPLUS.ini`
 dstar=`sed -n '2p'  $usuario/MMDVMHost/MMDVMDSTAR.ini`
