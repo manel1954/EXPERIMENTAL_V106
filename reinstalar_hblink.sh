@@ -1339,14 +1339,6 @@ printf "${GRIS}"
 
 sleep 1
 
-clear
-printf "${CIAN}"
-echo "=================================================================================="
-echo "        Introduce el puerto que utilizará para abrir el Dashboard ej. 7890        "
-echo "=================================================================================="
-printf "${GRIS}"
-read port
-#sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 sudo sed -i "74c background-image: url(http://$ip/hblink/images/fondo_hblink3.png);" /opt/HBmonitor/index_template.html
 
 # Suponiendo que la variable $ip ya está definida
@@ -1358,30 +1350,18 @@ length=${#last_part}
 
 # Crear la variable ip_buena con el formato adecuado
 if [ "$length" -eq 3 ]; then
-    ip_buena="7$last_part"
+    ip_hblink="7$last_part"
 elif [ "$length" -eq 2 ]; then
-    ip_buena="70$last_part"
+    ip_hblink="70$last_part"
 elif [ "$length" -eq 1 ]; then
-    ip_buena="700$last_part"
+    ip_hblink="700$last_part"
 else
-    ip_buena="ERROR"
+    ip_hblink="ERROR"
 fi
 
 # Mostrar el resultado
-echo "$ip_buena"
-
-
-
-
-
-sudo sed -i "9c WEB_SERVER_PORT = $ip_buena" /opt/HBmonitor/config.py
-
-
-
-
-
-
-
+echo "$ip_hblink"
+sudo sed -i "9c WEB_SERVER_PORT = $ip_hblink" /opt/HBmonitor/config.py
 sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
 sudo sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
 sudo sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar_cambios_en_todas_las_reglas.php
