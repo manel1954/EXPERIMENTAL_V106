@@ -1365,7 +1365,7 @@ sudo sed -i "315c \<a href=\"http://$ip/hblink/restaurar_servicios.php\"\>RESTAU
 
 
 
-sudo sed -i "316c \<a href=\"http://$ip/panel_control/panel_control.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
+sudo sed -i "316c \<a href=\"http://$ip/panel_control_experimental_v106/index.php\"\>PANEL DE CONTROL\</a>" /opt/HBmonitor/index_template.html
 
 
 sudo sed -i "286c \<img class=\"imagen\" src=\"http://$ip/hblink/images/hotspots.png\" width=\"80\" alt=\"Imagen\">" /opt/HBmonitor/index_template.html
