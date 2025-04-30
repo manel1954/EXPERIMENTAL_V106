@@ -1348,7 +1348,40 @@ printf "${GRIS}"
 read port
 #sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 sudo sed -i "74c background-image: url(http://$ip/hblink/images/fondo_hblink3.png);" /opt/HBmonitor/index_template.html
-sudo sed -i "9c WEB_SERVER_PORT = $port" /opt/HBmonitor/config.py
+
+
+// Extraer la última parte de la IP
+$last_part = explode('.', $ip)[3];
+
+// Contar la cantidad de dígitos
+$length = strlen($last_part);
+
+// Crear la variable $ip_buena con el formato adecuado
+if ($length == 3) {
+    $ip_buena = "7" . $last_part;
+} elseif ($length == 2) {
+    $ip_buena = "70" . $last_part;
+} elseif ($length == 1) {
+    $ip_buena = "700" . $last_part;
+} else {
+    $ip_buena = "ERROR"; // Por si acaso algo no cuadra
+}
+
+// Mostrar el resultado
+echo "$ip_buena\n";
+?>
+
+
+
+
+sudo sed -i "9c WEB_SERVER_PORT = $ip_buena" /opt/HBmonitor/config.py
+
+
+
+
+
+
+
 sudo sed -i "4c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard.php
 sudo sed -i "2c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/dashboard_sin_cambios.php
 sudo sed -i "11c header(\"Location:http://$ip:$port\");" /var/www/html/hblink/aplicar_cambios_en_todas_las_reglas.php
