@@ -1349,27 +1349,27 @@ read port
 #sudo sed -i "1c REPORT_NAME     = \'$dashboard\'" /opt/HBmonitor/config.py
 sudo sed -i "74c background-image: url(http://$ip/hblink/images/fondo_hblink3.png);" /opt/HBmonitor/index_template.html
 
+# Suponiendo que la variable $ip ya está definida
+# Extraer la última parte de la IP
+last_part=$(echo "$ip" | awk -F. '{print $4}')
 
-// Extraer la última parte de la IP
-$last_part = explode('.', $ip)[3];
+# Contar la cantidad de dígitos
+length=${#last_part}
 
-// Contar la cantidad de dígitos
-$length = strlen($last_part);
+# Crear la variable ip_buena con el formato adecuado
+if [ "$length" -eq 3 ]; then
+    ip_buena="7$last_part"
+elif [ "$length" -eq 2 ]; then
+    ip_buena="70$last_part"
+elif [ "$length" -eq 1 ]; then
+    ip_buena="700$last_part"
+else
+    ip_buena="ERROR"
+fi
 
-// Crear la variable $ip_buena con el formato adecuado
-if ($length == 3) {
-    $ip_buena = "7" . $last_part;
-} elseif ($length == 2) {
-    $ip_buena = "70" . $last_part;
-} elseif ($length == 1) {
-    $ip_buena = "700" . $last_part;
-} else {
-    $ip_buena = "ERROR"; // Por si acaso algo no cuadra
-}
+# Mostrar el resultado
+echo "$ip_buena"
 
-// Mostrar el resultado
-echo "$ip_buena\n";
-?>
 
 
 
