@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-#var=`grep -n -m 1 '\<DMRIDPATH\>' /home/pi/MMDVMHost/linux/DMRIDUpdate.sh`
+#var=`grep -n -m 1 '\<DMRIDPATH\>' /home/pi/MMDVMHost/linux/DMRIDUpdate.sh` 
 #buscar=":"
 #largo_linea=`expr index $var $buscar`
 #largo_linea=`expr $largo_linea - 1`
